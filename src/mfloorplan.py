@@ -27,27 +27,45 @@ def parse_cmd_line():
 
 # distance is a string containing a distance in some combination of feet,
 # inches, and fractional inches.  We parse it and return a floating point
-# number of total inches. 
+# number of total inches.  If there's an error, we return None.
 def parse_inches(distance):
-    print("parse of " + distance)
-    temp = distance
+    temp = distance.strip()
     inches = 0
     pattern = "\"$"
-    # print("pattern=",pattern)parse_inches
-    if re.search("\"$",temp):
-        # remove trailing "
+    # remove trailing "
+    if re.search("\"$",temp):        
         temp = temp[:-1]
+    # Parse trailing fractional inches, if any.
     mymatch = re.search("\d+/\d+$", temp)
     if mymatch:
-        print(mymatch)
         frac = mymatch.group()
-        print(frac)
         inches = eval(frac)
         temp = temp[:-len(frac)]
         if temp.endswith(" "):
             temp = temp[:-1]
-        print("changed temp to ="+temp+"=")
-    print("Returning ",inches)
+    # Deal with leading feet.
+    patternFeet = "^[+-]?((\d+(\.\d*)?)|(\.\d+))\'*"
+    mymatch = re.search(patternFeet, temp)
+    if mymatch:
+        feet = mymatch.group()
+        temp = temp[len(feet):].strip()
+        if feet.endswith("'"):
+            feet = feet[:-1]
+        inches += 12 * eval(feet)
+    # Deal with the remaining, which should be only inches
+    patternInches = "^[+-]?((\d+(\.\d*)?)|(\.\d+))"
+    mymatch = re.search(patternInches, temp)
+    if mymatch:
+        thisInches = mymatch.group()
+        temp = temp[len(thisInches):].strip()
+        if thisInches.endswith("\""):
+            thisInches = thisInches[:-1]
+        inches += eval(thisInches)
+    # Ensure there's no extra garbage.
+    temp = temp.strip()
+    if len(temp) > 0:
+        print("** Error: for " + distance + " temp is =" + temp + "=; should be empty")
+        inches = None
     return inches
 
 def do_rect(id,label,x,y,objrel,otherid,otherrel,relx,rely):
@@ -77,12 +95,17 @@ def read_csv_file(dict_args):
     return
 
 def test_parse_inches():
-    result = parse_inches("2' 4 7/8\"")
-    result = parse_inches("2' 4 7/8")
-    pass
+    list_fractions = ["2' 4 7/8\"", "2' 4 7/8", 
+        "2.3'", "2'", "34' 4 5/8", "34' 4\"", "a23"]
+    for item in list_fractions:
+        result = parse_inches(item)
+        print(item + " = " + str(result))
+
+def test_all():
+    test_parse_inches()
 
 def main():
-    test_parse_inches()
+    #test_all()
     success, dict_args = parse_cmd_line()
     read_csv_file(dict_args)
 

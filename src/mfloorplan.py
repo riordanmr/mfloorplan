@@ -10,6 +10,17 @@ import argparse
 import csv
 import re
 
+xoffset = 8
+yoffset = 8
+total_width = 1020
+total_height = 370
+stroke_width = 5
+svgfile = None
+dictIds = dict()
+
+class Room:
+    pass
+
 # Returns a tuple with success,dictionary_of_values
 def parse_cmd_line():
     dict_args = dict()
@@ -44,7 +55,7 @@ def parse_inches(distance):
         if temp.endswith(" "):
             temp = temp[:-1]
     # Deal with leading feet.
-    patternFeet = "^[+-]?((\d+(\.\d*)?)|(\.\d+))\'*"
+    patternFeet = "^[+-]?((\d+(\.\d*)?)|(\.\d+))\'"
     mymatch = re.search(patternFeet, temp)
     if mymatch:
         feet = mymatch.group()
@@ -68,8 +79,44 @@ def parse_inches(distance):
         inches = None
     return inches
 
-def do_rect(id,label,x,y,objrel,otherid,otherrel,relx,rely):
-    pass
+def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
+    global dictIds, xoffset, yoffset, total_width, total_height, stroke_width
+
+    width = parse_inches(width) + xoffset
+    height = parse_inches(height) + yoffset
+    relx = parse_inches(relx) + xoffset
+    rely = parse_inches(rely) + yoffset
+    
+    if otherid == "origin":
+        other_room = Room()
+        other_room.x = xoffset
+        other_room.y = yoffset
+        other_room.width = total_width
+        other_room.height = total_height
+    else:
+        other_room = dictIds[otherid]
+    # The coordinate system has (0,0) at the upper left.
+    # - ll = lower left
+    # - ul = upper left
+    # - lr = lower right
+    # - ur = upper right
+
+    x = 0
+    y = 0
+    if objrel == "ul" and otherrel == "ul":
+        x = other_room.x + relx
+        y = other_room.y + rely
+
+    thisObj = Room()
+    thisObj.x = x
+    thisObj.y = y
+    thisObj.width = width
+    thisObj.height = height
+    dictIds[id] = thisObj
+
+    line = f'<rect id="{id}" x="{x}" y="{y}" width="{width}" height="{height}"' + \
+        f' stroke-width="{stroke_width}" stroke="black" fill="transparent"/>'
+    write_line(line)
 
 def process_cmd(cmd, row):
     if(cmd=="rect"):
@@ -81,22 +128,38 @@ def process_cmd(cmd, row):
 
     else:
         print("Bad cmd " + cmd)
-    
+
+def write_line(txt):
+    global svgfile
+    svgfile.write(txt)
+    svgfile.write("\n")
+
+def write_file_header(dict_args):
+    global svgfile
+    outfile = dict_args["outfile"]
+    svgfile = open(outfile, "w")
+    write_line(f'<svg width="{total_width}" height="{total_height}" version="1.1" xmlns="http://www.w3.org/2000/svg">')
+
+def write_file_footer():
+    write_line("</svg>")
 
 def read_csv_file(dict_args):
     infile = dict_args["infile"]
     print("About to read " + dict_args["infile"])
     with open(infile, newline='') as csvfile:
         csvreader = csv.reader(csvfile, quoting=csv.QUOTE_NONE)
+        write_file_header(dict_args)
         for row in csvreader:
             cmd = row[0]
             process_cmd(cmd, row)
             pass
+    write_file_footer()
     return
 
+# Unit test for parsing of distances.
 def test_parse_inches():
-    list_fractions = ["2' 4 7/8\"", "2' 4 7/8", 
-        "2.3'", "2'", "34' 4 5/8", "34' 4\"", "a23"]
+    list_fractions = ["341 5/16", "2' 4 7/8\"", "2' 4 7/8", 
+        "2.3'", "2'", "34' 4 5/8", "34' 4\"", "32.14", "23 3/4", "a23"]
     for item in list_fractions:
         result = parse_inches(item)
         print(item + " = " + str(result))

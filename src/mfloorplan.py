@@ -7,7 +7,6 @@
 # Mark Riordan  2022-03-10
 
 import argparse
-import csv
 import re
 
 xoffset = 12
@@ -109,11 +108,8 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         x = other_room.x + relx 
         y = other_room.y + rely
     elif objrel == "lr" and otherrel == "lr":
-        #print(f"{id} lower right: other x={other_room.x} other width={other_room.width} width={width} relx={relx}")
         x = other_room.x + other_room.width - width + relx
         y = other_room.y + other_room.height - height + rely
-        #x -= stroke_width
-        #y -= stroke_width
     elif objrel == "lr" and otherrel == "ur":
         x = other_room.x + other_room.width - width + relx
         y = other_room.y - height + rely
@@ -122,7 +118,10 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         y = other_room.y + other_room.height + rely
     elif objrel == "ll" and otherrel == "ll":
         x = other_room.x + relx
-        y = other_room.y + other_room.height - height + rely        
+        y = other_room.y + other_room.height - height + rely
+    elif objrel == "ll" and otherrel == "lr":
+        x = other_room.x + other_room.width + relx
+        y = other_room.y + rely
     else:
         print(f"** Unrecognized objrel {objrel} otherrel {otherrel}")
 
@@ -168,9 +167,12 @@ def read_csv_file(dict_args):
     infile = dict_args["infile"]
     print("About to read " + dict_args["infile"])
     with open(infile, newline='') as csvfile:
-        csvreader = csv.reader(csvfile, quoting=csv.QUOTE_NONE)
+        # The csv class sucks.  It gives unpredictable errors under unknown
+        # irreproducible circumstances.  So I'll stop using it.  
+        #csvreader = csv.reader(csvfile, quoting=csv.QUOTE_NONE)
         write_file_header(dict_args)
-        for row in csvreader:
+        for line in csvfile:
+            row = line.strip().split(",")
             cmd = row[0]
             process_cmd(cmd, row)
             pass

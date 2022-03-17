@@ -4,3 +4,5 @@ rect,publicbath,WC,8' 6 3/4,87,lr,internet,ur,0,0
 rect,closettobeshelved,Closet,44 5/8,25.2,ul,origin,ul,263 9/16,35
 rect,privatebath,Emp WC,92 5/8,86 1/4,ul,closettobeshelved,ll,0,0
 rect,unkprivatebath,Unk,27 1/2,31 3/4,ll,privatebath,ll,0,0
+rect,fictoshelve,Emp Only,81 3/4,86 5/16,ll,privatebath,lr,0,0
+rect,counter1,Counter,111.25,25,ul,outline,ul,493,0

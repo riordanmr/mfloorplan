@@ -10,10 +10,10 @@ import argparse
 import csv
 import re
 
-xoffset = 8
-yoffset = 8
-total_width = 1020
-total_height = 370
+xoffset = 12
+yoffset = 12
+total_width = 1050
+total_height = 390
 stroke_width = 5
 svgfile = None
 dictIds = dict()
@@ -84,8 +84,8 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
 
     width = parse_inches(width) + xoffset
     height = parse_inches(height) + yoffset
-    relx = parse_inches(relx) + xoffset
-    rely = parse_inches(rely) + yoffset
+    relx = parse_inches(relx) 
+    rely = parse_inches(rely)
     
     if otherid == "origin":
         other_room = Room()
@@ -95,6 +95,8 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         other_room.height = total_height
     else:
         other_room = dictIds[otherid]
+        if other_room is None:
+            print("** Cannot find id " + otherid)
     # The coordinate system has (0,0) at the upper left.
     # - ll = lower left
     # - ul = upper left
@@ -104,8 +106,25 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     x = 0
     y = 0
     if objrel == "ul" and otherrel == "ul":
-        x = other_room.x + relx
+        x = other_room.x + relx 
         y = other_room.y + rely
+    elif objrel == "lr" and otherrel == "lr":
+        #print(f"{id} lower right: other x={other_room.x} other width={other_room.width} width={width} relx={relx}")
+        x = other_room.x + other_room.width - width + relx
+        y = other_room.y + other_room.height - height + rely
+        #x -= stroke_width
+        #y -= stroke_width
+    elif objrel == "lr" and otherrel == "ur":
+        x = other_room.x + other_room.width - width + relx
+        y = other_room.y - height + rely
+    elif objrel == "ul" and otherrel == "ll":
+        x = other_room.x + relx
+        y = other_room.y + other_room.height + rely
+    elif objrel == "ll" and otherrel == "ll":
+        x = other_room.x + relx
+        y = other_room.y + other_room.height - height + rely        
+    else:
+        print(f"** Unrecognized objrel {objrel} otherrel {otherrel}")
 
     thisObj = Room()
     thisObj.x = x
@@ -119,13 +138,15 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     write_line(line)
 
 def process_cmd(cmd, row):
-    if(cmd=="rect"):
-        # rect,outline,myoutline,341 5/16,993 13/16,ul,origin,ul,0,0
+    if cmd=="rect":
+        # rect,outline,myoutline,993 13/16,341 5/16,ul,origin,ul,0,0
         if len(row) != 10:
             print("Bad number of args for rect")
         else:
             do_rect(row[1], row[2], row[3], row[4], row[5], row[6],row[7],row[8],row[9])
-
+    elif cmd is None or cmd.startswith("#"):
+        # Ignore comments
+        pass
     else:
         print("Bad cmd " + cmd)
 
@@ -157,6 +178,7 @@ def read_csv_file(dict_args):
     return
 
 # Unit test for parsing of distances.
+# The results must be inspected manually.
 def test_parse_inches():
     list_fractions = ["341 5/16", "2' 4 7/8\"", "2' 4 7/8", 
         "2.3'", "2'", "34' 4 5/8", "34' 4\"", "32.14", "23 3/4", "a23"]

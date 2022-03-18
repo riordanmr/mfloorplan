@@ -1,0 +1,10 @@
+.normal {
+    stroke-width: 5;
+    stroke: black;
+    fill: transparent;
+}
+.nonwall {
+    stroke-width: 2;
+    stroke: grey;
+    fill: transparent;
+}

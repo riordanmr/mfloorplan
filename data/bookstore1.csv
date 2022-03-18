@@ -1,3 +1,4 @@
+class,normal
 rect,outline,,993 13/16,345.5,ul,origin,ul,0,0
 rect,internet,Staff area,146 3/4,151,lr,outline,lr,0,0
 rect,publicbath,WC,8' 6 3/4,87,lr,internet,ur,0,0
@@ -7,15 +8,17 @@ rect,closettobeshelved,Closet,44 5/8,25.2,ll,tobeshelved,ll,0,0
 rect,privatebath,Emp WC,106,86 1/4,ul,closettobeshelved,ll,0,0
 rect,closetprivatebath,Closet,27 1/2,31 3/4,ll,privatebath,ll,0,0
 rect,fictoshelve,Emp Only,81 3/4,86 5/16,ll,privatebath,lr,0,0
-rect,counter1,Counter,111.25,25,ul,tobeshelved,ur,46 7/8,0
-rect,counter2,Counter,34.5,69,ul,counter1,ur,0,0
 rect,wallnf1,,1,91 7/8,ll,outline,ll,268 1/4,0
 rect,wallnf2,,1,184 5/16,ul,outline,ul,268 1/4,0
+class,nonwall
+rect,counter1,Counter,111.25,25,ul,tobeshelved,ur,46 7/8,0
+rect,counter2,Counter,34.5,69,ul,counter1,ur,0,0
 rect,range,Range,19 3/4,59 1/4,ul,counter1,ll,0,0
 rect,oven,Oven,19 3/4,27,ur,range,lr,0,0
+class,prev
 rect,amazonoffice,Office,178,107,ur,outline,ur,0,0
 rect,amazonofficecloset,Closet,27,82,lr,amazonoffice,ll,0,0
-rect,amazonunknownwall,Unk,1,25,lr,amazonofficecloset,ur,0,0
+rect,amazonunknownwall,Unk,0.1,25,lr,amazonofficecloset,ur,0,0
 rect,wallpaper1,,1,113 3/8,ll,wallnf1,lr,183 1/16,0
 rect,wallpaper2,,1,168 3/8,ll,tobeshelved,ur,0,0
 #rect,frontdesk,Desk,38 1/2,59,lr,wallpaper1,ll,0,0

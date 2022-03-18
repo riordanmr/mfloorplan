@@ -13,7 +13,8 @@ xoffset = 12
 yoffset = 12
 total_width = 1050
 total_height = 390
-stroke_width = 5
+current_class = ""
+list_classes = [current_class]
 svgfile = None
 dictIds = dict()
 
@@ -30,9 +31,12 @@ def parse_cmd_line():
         help="name of input CSV file")
     parser.add_argument("--outfile", type=str, required=True, 
         help="name of output SVG file")
+    parser.add_argument("--cssfile", type=str, required=False, 
+        help="name of optional existing CSS file to reference")
     args = parser.parse_args()
     dict_args["infile"] = args.infile
     dict_args["outfile"] = args.outfile
+    dict_args["cssfile"] = args.cssfile
     return success, dict_args
 
 # distance is a string containing a distance in some combination of feet,
@@ -77,6 +81,12 @@ def parse_inches(distance):
         print("** Error: for " + distance + " temp is =" + temp + "=; should be empty")
         inches = None
     return inches
+
+def concat_list(mylist):
+    msg = ""
+    for token in mylist:
+        msg += token + " "
+    return msg
 
 def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     global dictIds, xoffset, yoffset, total_width, total_height, stroke_width
@@ -153,23 +163,35 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     thisObj.height = height
     dictIds[id] = thisObj
 
-    line = f'<rect id="{id}" x="{x}" y="{y}" width="{width}" height="{height}"' + \
-        f' stroke-width="{stroke_width}" stroke="black" fill="transparent"/>'
+    line = f'<rect id="{id}" x="{x}" y="{y}" width="{width}" height="{height}"'
+    if len(current_class) > 0:
+        line += f' class="{current_class}"'
+    line += "/>"
     write_line(line)
+
+def do_class(new_class):
+    global current_class, list_classes
+    if new_class=="prev" or new_class=="pop":
+        current_class = list_classes.pop()
+    else:
+        list_classes.append(current_class)
+        current_class = new_class
 
 def process_cmd(cmd, row):
     if cmd=="rect":
         # rect,outline,myoutline,993 13/16,341 5/16,ul,origin,ul,0,0
         if len(row) != 10:
-            msg = ""
-            for token in row:
-                msg += token + " "
-            print("Bad number of args for rect:" + msg)
+            print("Bad number of args for rect: " + concat_list(row))
         else:
             do_rect(row[1], row[2], row[3], row[4], row[5], row[6],row[7],row[8],row[9])
-    elif cmd is None or cmd.startswith("#"):
+    elif cmd is None or cmd.startswith("#") or len(cmd)==0:
         # Ignore comments
         pass
+    elif cmd=="class":
+        if len(row) != 2:
+            print("Bad number of args for class: " + concat_list(row))
+        else:
+            do_class(row[1])
     else:
         print("Bad cmd " + cmd)
 
@@ -182,6 +204,9 @@ def write_file_header(dict_args):
     global svgfile
     outfile = dict_args["outfile"]
     svgfile = open(outfile, "w")
+    if "cssfile" in dict_args:
+        cssfile = dict_args["cssfile"]
+        write_line(f'<?xml-stylesheet type="text/css" href="{cssfile}"?>')
     write_line(f'<svg width="{total_width}" height="{total_height}" version="1.1" xmlns="http://www.w3.org/2000/svg">')
 
 def write_file_footer():

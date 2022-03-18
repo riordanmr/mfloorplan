@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": ["--infile=data/test1.csv", "--outfile=test1.svg"],
+            "args": ["--infile=data/bookstore1.csv", "--outfile=data/bookstore1.svg"],
             "console": "integratedTerminal",
             "justMyCode": true
         }

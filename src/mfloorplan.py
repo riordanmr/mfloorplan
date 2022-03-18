@@ -81,8 +81,8 @@ def parse_inches(distance):
 def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     global dictIds, xoffset, yoffset, total_width, total_height, stroke_width
 
-    width = parse_inches(width) + xoffset
-    height = parse_inches(height) + yoffset
+    width = parse_inches(width) 
+    height = parse_inches(height) 
     relx = parse_inches(relx) 
     rely = parse_inches(rely)
     
@@ -121,9 +121,30 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         y = other_room.y + other_room.height - height + rely
     elif objrel == "ll" and otherrel == "lr":
         x = other_room.x + other_room.width + relx
+        y = other_room.y + other_room.height - height + rely
+    elif objrel == "ul" and otherrel == "ur":
+        x = other_room.x + other_room.width + relx
         y = other_room.y + rely
+    elif objrel == "ur" and otherrel == "ur":
+        x = other_room.x + other_room.width - width + relx
+        y = other_room.y + rely
+    elif objrel == "ll" and otherrel == "ul":
+        x = other_room.x + relx
+        y = other_room.y - height + rely
+    elif objrel == "ll" and otherrel == "ur":
+        x = other_room.x + other_room.width + relx
+        y = other_room.y + rely
+    elif objrel == "ur" and otherrel == "lr":
+        x = other_room.x + relx
+        y = other_room.y + other_room.height + rely
+    # elif objrel == "ul" and otherrel == "ur":
+    #     x = other_room.x + other_room.width - width + relx
+    #     y = other_room.y + rely
+    elif objrel == "lr" and otherrel == "ll":
+        x = other_room.x + relx
+        y = other_room.y + other_room.height - height + rely
     else:
-        print(f"** Unrecognized objrel {objrel} otherrel {otherrel}")
+        print(f"** for {id} unrecognized objrel {objrel} otherrel {otherrel}")
 
     thisObj = Room()
     thisObj.x = x
@@ -140,7 +161,10 @@ def process_cmd(cmd, row):
     if cmd=="rect":
         # rect,outline,myoutline,993 13/16,341 5/16,ul,origin,ul,0,0
         if len(row) != 10:
-            print("Bad number of args for rect")
+            msg = ""
+            for token in row:
+                msg += token + " "
+            print("Bad number of args for rect:" + msg)
         else:
             do_rect(row[1], row[2], row[3], row[4], row[5], row[6],row[7],row[8],row[9])
     elif cmd is None or cmd.startswith("#"):
@@ -172,7 +196,9 @@ def read_csv_file(dict_args):
         #csvreader = csv.reader(csvfile, quoting=csv.QUOTE_NONE)
         write_file_header(dict_args)
         for line in csvfile:
-            row = line.strip().split(",")
+            #stripped_line = line.rstrip("\n")
+            #print(f"Processing {stripped_line}")
+            row = line.rstrip("\n").strip().split(",")
             cmd = row[0]
             process_cmd(cmd, row)
             pass

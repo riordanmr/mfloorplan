@@ -15,6 +15,7 @@ total_width = 1050
 total_height = 390
 current_class = ""
 list_classes = [current_class]
+dict_vectors = dict()
 svgfile = None
 dictIds = dict()
 
@@ -103,6 +104,10 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         other_room.width = total_width
         other_room.height = total_height
     else:
+        if otherid not in dictIds:
+            print(f"** Unknown otherid {otherid} for {id}")
+            return None
+            
         other_room = dictIds[otherid]
         if other_room is None:
             print("** Cannot find id " + otherid)
@@ -151,7 +156,7 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     #     x = other_room.x + other_room.width - width + relx
     #     y = other_room.y + rely
     elif objrel == "lr" and otherrel == "ll":
-        x = other_room.x + relx
+        x = other_room.x - width + relx
         y = other_room.y + other_room.height - height + rely
     else:
         print(f"** for {id} unrecognized objrel {objrel} otherrel {otherrel}")
@@ -167,6 +172,7 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     if len(current_class) > 0:
         line += f' class="{current_class}"'
     line += "/>"
+    dict_vectors[id] = line
     write_line(line)
 
 def do_class(new_class):
@@ -176,6 +182,11 @@ def do_class(new_class):
     else:
         list_classes.append(current_class)
         current_class = new_class
+
+def do_repeat(id):
+    global dict_vectors
+    line = dict_vectors[id]
+    write_line(line)
 
 def process_cmd(cmd, row):
     if cmd=="rect":
@@ -192,6 +203,11 @@ def process_cmd(cmd, row):
             print("Bad number of args for class: " + concat_list(row))
         else:
             do_class(row[1])
+    elif cmd=="repeat":
+        if len(row) != 2:
+            print("Bad number of args for repeat: " + concat_list(row))
+        else:
+            do_repeat(row[1])
     else:
         print("Bad cmd " + cmd)
 

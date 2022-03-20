@@ -109,8 +109,7 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
             return None
             
         other_room = dictIds[otherid]
-        if other_room is None:
-            print("** Cannot find id " + otherid)
+
     # The coordinate system has (0,0) at the upper left.
     # - ll = lower left
     # - ul = upper left

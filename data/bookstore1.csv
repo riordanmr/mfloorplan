@@ -18,7 +18,6 @@ rect,privatebath,Emp WC,106,86 1/4,ul,closettobeshelved,ll,0,0
 rect,closetprivatebath,Closet,27 1/2,31 3/4,ll,privatebath,ll,0,0
 rect,fictoshelve,Emp Only,81 3/4,86 5/16,ll,privatebath,lr,0,0
 
-class,pop
 rect,wallnf1,,1,91 7/8,ll,outline,ll,268 1/4,0
 rect,wallnf2,,1,184 5/16,ul,outline,ul,268 1/4,0
 class,nonwall private
@@ -28,17 +27,20 @@ rect,range,Range,19 3/4,59 1/4,ul,counter1,ll,0,0
 rect,oven,Oven,19 3/4,27,ur,range,lr,0,0
 class,normal private
 # Not sure whether these are aligned with the oven
-rect,closetoven,,37.5,32 13/16,ul,oven,ll,0,57.4
+rect,closetoven,,37.5,32 13/16,ul,oven,ll,0,35 7/8
 rect,fridge,,39,32 13/16,ul,closetoven,ur,0,0
 rect,closetsupplies,,75 1/4,32 13/16,ul,fridge,ur,0,0
+rect,lowwall,,48 3/4,8 9/16,ll,closetsupplies,lr,0,0
 
-class,normal public
-rect,wallpaperback1,,1,113 3/8,ll,wallnf1,lr,183 1/16,0
+class,normal public 
+rect,wallpaperback1,,1,113 3/8,ll,wallnf1,lr,187 5/8,0
 rect,wallpaperback2,,1,168 3/8,ll,tobeshelved,ur,0,0
-#rect,frontdesk,Desk,38 1/2,59,lr,wallpaperback1,ll,0,0
 
-class,nonwall public guess
-rect,shelvesfic,Fic,72,10,lr,closetacrosswc,ll,0,0
+class,nonwall private
+rect,frontdesk,Desk,38 1/2,59,ll,wallpaperback1,lr,75 7/8,0
+
+class,nonwall public
+rect,shelvesfic,Fic,63 3/8,10 9/16,lr,closetacrosswc,ll,0,0
 
 class,normal public
 # repeat the building outline, so it will be in all black.

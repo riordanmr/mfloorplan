@@ -103,7 +103,7 @@ def draw_label(objid,label):
     if (1.2*rect.width) >= rect.height:
         line = f'<text text-anchor="middle" dominant-baseline="central" transform="translate({xcenter},{ycenter}) rotate(0)"'
     else:
-        # Use vertical if the height is greater than the width.
+        # Use vertical.
         line = f'<text text-anchor="middle" dominant-baseline="central" transform="translate({xcenter},{ycenter}) rotate(-90)"'
 
     # I removed code to add  f' class="{current_class}"'  because the results were unreadable.

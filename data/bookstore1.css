@@ -17,3 +17,8 @@
 .guess {
     stroke: red;
 }
+
+text {
+    font-family: serif;
+    font-size: 8pt;
+}

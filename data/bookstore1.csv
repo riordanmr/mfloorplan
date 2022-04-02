@@ -7,11 +7,11 @@ rect,amazonoffice,Office,147,126,ur,outline,ur,0,0
 rect,amazonofficecloset,Closet,27,94,lr,amazonoffice,ll,0,0
 rect,amazonunknownwall,Unk,27,32,ll,amazonofficecloset,ul,0,0
 rect,closetacrosswc,Closet,28,41,ul,amazonofficecloset,ll,0,0
-rect,internet,Staff area,146 3/4,124,lr,outline,lr,0,0
+rect,internet,Staff Area,146 3/4,124,lr,outline,lr,0,0
 rect,internetcloset,,27.5,96 5/8,lr,internet,ll,0,0
-rect,waterheater,,27.5,28,ll,internetcloset,ul,0,0
+rect,waterheater,WH,27.5,28,ll,internetcloset,ul,0,0
 class,prev
-rect,publicbath,WC,8' 6 3/4,95,lr,internet,ur,0,0
+rect,publicbath,Restroom,8' 6 3/4,95,lr,internet,ur,0,0
 class,normal private
 rect,tobeshelved,To Shelve,187 5/8,65,ul,outline,ul,268 1/4,0
 rect,closettobeshelved,Closet,44 5/8,25.2,ll,tobeshelved,ll,0,0
@@ -30,9 +30,9 @@ rect,oven,Oven,19 3/4,27,ur,range,lr,0,0
 class,normal private
 # Not sure whether these are aligned with the oven
 #rect,closetoven,,37.5,37.5,ul,oven,ll,0,35 7/8
-rect,closetoven,,37.5,37.5,ul,counter1,ul,0,147 3/4
-rect,fridge,,39,37.5,ul,closetoven,ur,0,0
-rect,closetsupplies,,75 1/4,37.5,ul,fridge,ur,0,0
+rect,closetoven,Closet,37.5,37.5,ul,counter1,ul,0,147 3/4
+rect,fridge,Fridge,39,37.5,ul,closetoven,ur,0,0
+rect,closetsupplies,Supplies,75 1/4,37.5,ul,fridge,ur,0,0
 rect,lowwall,,48 3/4,8 9/16,ll,closetsupplies,lr,0,0
 
 class,normal public 

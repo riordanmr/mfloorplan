@@ -89,6 +89,28 @@ def concat_list(mylist):
         msg += token + " "
     return msg
 
+# Draw the text in "label" in the object given by dictIds[objid]
+def draw_label(objid,label):
+    # To draw a horizontal label, generate an SVG element like this:
+    #   <text text-anchor="middle" dominant-baseline="central" transform="translate(xcenter,ycenter) rotate(0)">label</text>
+    # To draw a vertical label, generate an SVG element like this:
+    #   <text text-anchor="middle" dominant-baseline="central" transform="translate(xcenter,ycenter) rotate(-90)">label</text>
+    # For now, we'll draw only horizontal labels.
+    rect = dictIds[objid]
+    xcenter = rect.x + 0.5*rect.width
+    ycenter = rect.y + 0.5*rect.height
+    # Use horizontal if the width is greater than the height, or almost so.
+    if (1.2*rect.width) >= rect.height:
+        line = f'<text text-anchor="middle" dominant-baseline="central" transform="translate({xcenter},{ycenter}) rotate(0)"'
+    else:
+        # Use vertical if the height is greater than the width.
+        line = f'<text text-anchor="middle" dominant-baseline="central" transform="translate({xcenter},{ycenter}) rotate(-90)"'
+
+    # I removed code to add  f' class="{current_class}"'  because the results were unreadable.
+    line += ">"
+    line += f'{label}</text>'
+    write_line(line)
+
 def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     global dictIds, xoffset, yoffset, total_width, total_height, stroke_width
 
@@ -173,6 +195,9 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     line += "/>"
     dict_vectors[id] = line
     write_line(line)
+
+    if label != "":
+        draw_label(id, label)
 
 def do_class(new_class):
     global current_class, list_classes

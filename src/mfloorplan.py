@@ -12,7 +12,7 @@ import re
 xoffset = 12
 yoffset = 12
 total_width = 1050
-total_height = 390
+total_height = 480
 current_class = ""
 list_classes = [current_class]
 dict_vectors = dict()
@@ -146,6 +146,9 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     elif objrel == "lr" and otherrel == "lr":
         x = other_room.x + other_room.width - width + relx
         y = other_room.y + other_room.height - height + rely
+    elif objrel == "lr" and otherrel == "ul":
+        x = other_room.x - width + relx
+        y = other_room.y - height + rely
     elif objrel == "lr" and otherrel == "ur":
         x = other_room.x + other_room.width - width + relx
         y = other_room.y - height + rely

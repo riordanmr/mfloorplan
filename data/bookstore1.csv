@@ -2,8 +2,10 @@
 # of the Sedona Library's bookstore.
 # MRR  2022
 class,normal public
+textclass,textpublic
 rect,outline,,1002,345.5,ul,origin,ul,0,100
 class,normal private
+textclass,textprivate
 # amazonoffice was y=119 but that didn't work
 # was rect,amazonoffice,Office,178,119,ur,outline,ur,0,0
 rect,amazonoffice,Staff Area,147,126,ur,outline,ur,0,0
@@ -11,11 +13,13 @@ rect,amazonofficecloset,Closet,27,94,lr,amazonoffice,ll,0,0
 rect,amazonunknownwall,Unk,27,32,ll,amazonofficecloset,ul,0,0
 rect,closetacrosswc,Closet,28,41,ul,amazonofficecloset,ll,0,0
 rect,internet,Staff Area,146 3/4,124,lr,outline,lr,0,0
-rect,internetcloset,,27.5,96 5/8,lr,internet,ll,0,0
+rect,internetcloset,Closet,27.5,96 5/8,lr,internet,ll,0,0
 rect,waterheater,WH,27.5,28,ll,internetcloset,ul,0,0
 class,prev
+textclass,prev
 rect,publicbath,Restroom,8' 6 3/4,95,lr,internet,ur,0,0
 class,normal private
+textclass,textprivate
 rect,tobeshelved,Staff Area,187 5/8,65,ul,outline,ul,268 1/4,0
 rect,closettobeshelved,Closet,44 5/8,25.2,ll,tobeshelved,ll,0,0
 # privatebath I made much wider to get alignment.  Was 92 5/8.
@@ -23,14 +27,17 @@ rect,privatebath,Staff WC,106,86 1/4,ul,closettobeshelved,ll,0,0
 rect,closetprivatebath,Closet,27 1/2,31 3/4,ll,privatebath,ll,0,0
 rect,fictoshelve,Staff Area,81 3/4,86 5/16,ll,privatebath,lr,0,0
 class,normal public
+textclass,textpublic
 rect,wallnf1,,1,91 7/8,ll,outline,ll,268 1/4,0
 rect,wallnf2,,1,184 5/16,ul,outline,ul,268 1/4,0
 class,nonwall private
+textclass,textprivate
 rect,counter1,Counter,111.25,25,ul,tobeshelved,ur,46 7/8,0
 rect,counter2,Counter,34.5,69,ul,counter1,ur,0,0
 rect,range,Range,19 3/4,59 1/4,ul,counter1,ll,0,0
 rect,oven,Oven,19 3/4,27,ur,range,lr,0,0
 class,normal private
+textclass,textprivate
 # Not sure whether these are aligned with the oven
 #rect,closetoven,,37.5,37.5,ul,oven,ll,0,35 7/8
 rect,closetoven,Closet,37.5,37.5,ul,counter1,ul,0,147 3/4
@@ -38,17 +45,21 @@ rect,fridge,Fridge,39,37.5,ul,closetoven,ur,0,0
 rect,closetsupplies,Supplies,75 1/4,37.5,ul,fridge,ur,0,0
 rect,lowwall,,48 3/4,8 9/16,ll,closetsupplies,lr,0,0
 
-rect,slidingdoors,,97,0.1,lr,amazonunknownwall,ul,-42,0
+# slidingdoors should be -38 but that doesn't line up properly.
+rect,slidingdoors,,97,0.1,lr,amazonunknownwall,ul,-47,0
 rect,backporch,Staff Area,224,90,lr,slidingdoors,ur,0,0
 
 class,normal public 
+textclass,textpublic
 rect,wallpaperback1,,1,113 3/8,ll,wallnf1,lr,187 5/8,0
 rect,wallpaperback2,,1,168 3/8,ll,tobeshelved,ur,0,0
 
 class,nonwall private
+textclass,textprivate
 rect,frontdesk,Desk,38 1/2,59,ll,wallpaperback1,lr,75 7/8,0
 
 class,nonwall public
+textclass,textpublic
 rect,shelvesfic,Fic,63 3/8,10 9/16,lr,closetacrosswc,ll,0,0
 
 class,normal public

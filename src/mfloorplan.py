@@ -14,7 +14,9 @@ yoffset = 12
 total_width = 1050
 total_height = 480
 current_class = ""
+current_text_class = ""
 list_classes = [current_class]
+list_text_classes = [current_text_class]
 dict_vectors = dict()
 svgfile = None
 dictIds = dict()
@@ -106,7 +108,8 @@ def draw_label(objid,label):
         # Use vertical.
         line = f'<text text-anchor="middle" dominant-baseline="central" transform="translate({xcenter},{ycenter}) rotate(-90)"'
 
-    # I removed code to add  f' class="{current_class}"'  because the results were unreadable.
+    if current_text_class != "":
+        line += f' class="{current_text_class}"'
     line += ">"
     line += f'{label}</text>'
     write_line(line)
@@ -210,6 +213,14 @@ def do_class(new_class):
         list_classes.append(current_class)
         current_class = new_class
 
+def do_textclass(new_class):
+    global current_text_class, list_text_classes
+    if new_class=="prev" or new_class=="pop":
+        current_text_class = list_text_classes.pop()
+    else:
+        list_text_classes.append(current_text_class)
+        current_text_class = new_class
+
 def do_repeat(id):
     global dict_vectors
     line = dict_vectors[id]
@@ -230,6 +241,11 @@ def process_cmd(cmd, row):
             print("Bad number of args for class: " + concat_list(row))
         else:
             do_class(row[1])
+    elif cmd=="textclass":
+        if len(row) != 2:
+            print("Bad number of args for textclass: " + concat_list(row))
+        else:
+            do_textclass(row[1])
     elif cmd=="repeat":
         if len(row) != 2:
             print("Bad number of args for repeat: " + concat_list(row))

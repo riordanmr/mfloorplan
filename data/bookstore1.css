@@ -18,7 +18,14 @@
     stroke: red;
 }
 
-text {
+.textpublic {
     font-family: sans-serif;
     font-size: 8pt;
+    fill: black;
+}
+
+.textprivate {
+    font-family: sans-serif;
+    font-size: 8pt;
+    fill: grey;
 }

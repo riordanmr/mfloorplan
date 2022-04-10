@@ -294,7 +294,7 @@ def do_imagesize(sizex, sizey):
         total_width = sizex
         total_height = sizey
         write_line(f'<svg width="{total_width}" height="{total_height}" version="1.1" xmlns="http://www.w3.org/2000/svg">')
-        write_line(f"<!-- Rendered {get_timestamp()} -->")
+        write_line(f"<!-- Rendered {get_timestamp()} by mfloorplan.py https://github.com/riordanmr/mfloorplan -->")
     else:
         print("Error in imagesize: image size has already been set")
 

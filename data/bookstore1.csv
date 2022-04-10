@@ -1,6 +1,7 @@
 # bookstore1.csv is an input file to mfloorplan.py to create a rendering of the floor plan
 # of the Sedona Library's bookstore.
 # MRR  2022
+imagesize,1050,472
 class,normal public
 textclass,textpublic
 rect,outline,,1002,345.5,ul,origin,ul,0,100

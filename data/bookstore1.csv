@@ -63,6 +63,13 @@ class,nonwall public
 textclass,textpublic
 rect,shelvesfic,Fic,63 3/8,10 9/16,lr,closetacrosswc,ll,0,0
 
+rect,mystery,Mystery,194,18.5,ul,closetoven,ll,5,0
+# softback1 should be offset -30 but that looks wrong. 
+rect,softback1,Softback,20.5,96 1/8,lr,internetcloset,ll,0,-25
+rect,softback2,Softback,83.5,12 3/4,lr,internetcloset,ll,-119,0
+rect,romance,Romance/SF,73 5/8,11 5/8,lr,internetcloset,ll,-122,-70.5
+rect,poetry,Poetry/LP/Hist,73 5/8,11 5/8,ll,romance,ul,0,0
+
 class,normal public
 # repeat the building outline, so it will be in all black.
 repeat,outline

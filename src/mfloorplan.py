@@ -244,11 +244,11 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
         x = other_room.x + other_room.width + relx
         y = other_room.y + rely
     elif objrel == "ur" and otherrel == "lr":
-        x = other_room.x + relx
+        x = other_room.x + other_room.width - width + relx
         y = other_room.y + other_room.height + rely
-    # elif objrel == "ul" and otherrel == "ur":
-    #     x = other_room.x + other_room.width - width + relx
-    #     y = other_room.y + rely
+    elif objrel == "ur" and otherrel == "ul":
+         x = other_room.x - width + relx
+         y = other_room.y + rely
     elif objrel == "lr" and otherrel == "ll":
         x = other_room.x - width + relx
         y = other_room.y + other_room.height - height + rely

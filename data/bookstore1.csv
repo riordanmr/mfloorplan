@@ -70,6 +70,15 @@ rect,softback2,Softback,83.5,12 3/4,lr,internetcloset,ll,-119,0
 rect,romance,Romance/SF,73 5/8,11 5/8,lr,internetcloset,ll,-122,-70.5
 rect,poetry,Poetry/LP/Hist,73 5/8,11 5/8,ll,romance,ul,0,0
 
+textclass,textpublic small
+rect,massmystery1,Mystery PB,10 9/16,91 7/16,ur,wallpaperback1,ul,0,3
+rect,massmystery2,Mys PB,36,11,lr,wallpaperback1,ll,-12.7,0
+rect,childrens,Child,29 1/2,12 7/8,ll,wallnf1,lr,12,0
+rect,massfiction,Fiction PB,88 7/8,12 7/8,ll,childrens,lr,0,0
+rect,dvd,DVDs,12 3/16,59 3/4,ll,wallnf1,lr,0,-29.7
+rect,western,West,31,14,ul,closetprivatebath,ll,0,0
+rect,classics,Classics,48,13,ur,fictoshelve,lr,-67,0
+
 class,normal public
 # repeat the building outline, so it will be in all black.
 repeat,outline

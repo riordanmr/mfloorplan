@@ -9,7 +9,13 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": ["--infile=data/bookstore1.csv", "--outfile=data/bookstore1.svg", "--cssfile=bookstore1.css"],
+            "args": [
+                "--infile=data/bookstore1.csv", 
+                "--outfile=data/bookstore1.svg", 
+                "--skelfile=data/bookstore1.skel.html", 
+                "--htmlfile=data/bookstore1.html",
+                "--cssfile=bookstore1.css"
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
         }

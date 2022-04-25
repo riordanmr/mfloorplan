@@ -96,12 +96,18 @@ def parse_cmd_line():
         help="name of input CSV file")
     parser.add_argument("--outfile", type=str, required=True, 
         help="name of output SVG file")
+    parser.add_argument("--skelfile", type=str, required=True,
+        help="name of input HTML skeleton file")
+    parser.add_argument("--htmlfile", type=str, required=True,
+        help="name of output HTML file")
     parser.add_argument("--cssfile", type=str, required=False, 
         help="name of optional existing CSS file to reference")
     args = parser.parse_args()
     dict_args["infile"] = args.infile
     dict_args["outfile"] = args.outfile
     dict_args["cssfile"] = args.cssfile
+    dict_args["skelfile"] = args.skelfile
+    dict_args["htmlfile"] = args.htmlfile
     return success, dict_args
 
 # distance is a string containing a distance in some combination of feet,
@@ -373,6 +379,16 @@ def read_csv_file(dict_args):
     write_file_footer()
     return
 
+def process_skel_file(dict_args):
+    stamp = datetime.today().strftime('%Y-%m-%d')
+    with open(dict_args["htmlfile"], "w") as htmlfile:
+        with open(dict_args["skelfile"], newline='') as skelfile:
+            for line in skelfile:
+                finalLine = line.replace("@[DATE@]", stamp)
+                htmlfile.write(finalLine)
+                pass
+    return
+
 # Unit test for parsing of distances.
 # The results must be inspected manually.
 def test_parse_inches():
@@ -389,5 +405,6 @@ def main():
     #test_all()
     success, dict_args = parse_cmd_line()
     read_csv_file(dict_args)
+    process_skel_file(dict_args)
 
 main()

@@ -11,7 +11,7 @@ textclass,textprivate
 # was rect,amazonoffice,Office,178,119,ur,outline,ur,0,0
 rect,amazonoffice,Staff Area,147,126,ur,outline,ur,0,0
 rect,amazonofficecloset,Closet,27,94,lr,amazonoffice,ll,0,0
-rect,amazonunknownwall,Unk,27,32,ll,amazonofficecloset,ul,0,0
+rect,amazonunknownwall,?,27,32,ll,amazonofficecloset,ul,0,0
 rect,closetacrosswc,Closet,28,41,ul,amazonofficecloset,ll,0,0
 rect,internet,Staff Area,146 3/4,124,lr,outline,lr,0,0
 rect,internetcloset,Closet,27.5,96 5/8,lr,internet,ll,0,0
@@ -25,7 +25,10 @@ rect,tobeshelved,Staff Area,187 5/8,65,ul,outline,ul,268 1/4,0
 rect,closettobeshelved,Closet,44 5/8,25.2,ll,tobeshelved,ll,0,0
 # privatebath I made much wider to get alignment.  Was 92 5/8.
 rect,privatebath,Staff WC,106,86 1/4,ul,closettobeshelved,ll,0,0
+textclass,textprivate smaller
+#textclass,textpublic smaller
 rect,closetprivatebath,Closet,27 1/2,31 3/4,ll,privatebath,ll,0,0
+textclass,prev
 rect,fictoshelve,Staff Area,81 3/4,86 5/16,ll,privatebath,lr,0,0
 class,normal public
 textclass,textpublic
@@ -61,9 +64,9 @@ rect,frontdesk,Desk,38 1/2,59,ll,wallpaperback1,lr,75 7/8,0
 
 class,nonwall public
 textclass,textpublic
-rect,shelvesfic,Fic,63 3/8,10 9/16,lr,closetacrosswc,ll,0,0
+rect,shelvesfic,Fiction,63 3/8,10 9/16,lr,closetacrosswc,ll,0,0
 
-rect,mystery,Mystery,194,18.5,ul,closetoven,ll,5,0
+rect,mystery,Mystery / Fiction,194,18.5,ul,closetoven,ll,5,0
 # softback1 should be offset -30 but that looks wrong. 
 rect,softback1,Softback,20.5,96 1/8,lr,internetcloset,ll,0,-25
 rect,softback2,Softback,83.5,12 3/4,lr,internetcloset,ll,-119,0
@@ -72,7 +75,9 @@ rect,poetry,Poetry/LP/Hist,73 5/8,11 5/8,ll,romance,ul,0,0
 
 textclass,textpublic small
 rect,massmystery1,Mystery PB,10 9/16,91 7/16,ur,wallpaperback1,ul,0,3
+textclass,textpublic smaller
 rect,massmystery2,Mys PB,36,11,lr,wallpaperback1,ll,-12.7,0
+textclass,prev
 rect,childrens,Child,29 1/2,12 7/8,ll,wallnf1,lr,12,0
 rect,massfiction,Fiction PB,88 7/8,12 7/8,ll,childrens,lr,0,0
 rect,dvd,DVDs,12 3/16,59 3/4,ll,wallnf1,lr,0,-29.7

@@ -187,6 +187,8 @@ def draw_label(objid,label):
     line += f'{label}</text>'
     write_line(line)
 
+# Process the "rect" command by writing directives to the SVG file
+# which cause a rectange to be drawn.
 def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     global dictIds, xoffset, yoffset, total_width, total_height, stroke_width
 
@@ -309,6 +311,9 @@ def do_repeat(id):
     line = dict_vectors[id]
     write_line(line)
 
+# Process a command.
+# Entry:    cmd     is the command, e.g., "rect"
+#           row     is a list of the command name and its arguments.
 def process_cmd(cmd, row):
     if cmd=="rect":
         # rect,outline,myoutline,993 13/16,341 5/16,ul,origin,ul,0,0
@@ -342,11 +347,19 @@ def process_cmd(cmd, row):
     else:
         print("Bad cmd " + cmd)
 
+# Write a line of text to the SVG file.
+# We append a newline to the line.
+# Entry:    txt is the line of text to write. 
 def write_line(txt):
     global svgfile
     svgfile.write(txt)
     svgfile.write("\n")
 
+# Open the output SVG file and write the header.
+# Entry:    dict_args["outfile"] is the name of the output file.
+#           dict_args["cssfile"] is the name of the CSS file being used;
+#               this will be reference in the SVG file.
+# Exit:     svgfile is the file handle for the SVG output file.
 def write_file_header(dict_args):
     global svgfile
     outfile = dict_args["outfile"]
@@ -379,6 +392,10 @@ def read_csv_file(dict_args):
     write_file_footer()
     return
 
+# Create an HTML file from an HTML skeleton input file.
+# Certain patterns in the input file are replaced with runtime values.
+# Entry:    dict_args["skelfile"] is the name of the input skeleton file.
+#           dict_args["htmlfile"] is the name of the output file.
 def process_skel_file(dict_args):
     stamp = datetime.today().strftime('%Y-%m-%d')
     with open(dict_args["htmlfile"], "w") as htmlfile:
@@ -386,7 +403,6 @@ def process_skel_file(dict_args):
             for line in skelfile:
                 finalLine = line.replace("@[DATE@]", stamp)
                 htmlfile.write(finalLine)
-                pass
     return
 
 # Unit test for parsing of distances.

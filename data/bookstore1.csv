@@ -84,6 +84,12 @@ rect,dvd,DVDs,12 3/16,59 3/4,ll,wallnf1,lr,0,-29.7
 rect,western,West,31,14,ul,closetprivatebath,ll,0,0
 rect,classics,Classics,48,13,ur,fictoshelve,lr,-67,0
 
+# Non-Fiction room
+rect,worldhistmainright,,14.5,33,lr,wallnf1,ll,0,0
+rect,worldhistmainleft,,14.5,48,lr,worldhistmainright,ur,0,0
+rect,worldhistancient,,47,10,ur,worldhistmainleft,ul,-5,0
+rect,worldhistwar,,33,12 5/8,lr,worldhistmainright,ll,-5.5,0
+
 class,normal public
 # repeat the building outline, so it will be in all black.
 repeat,outline

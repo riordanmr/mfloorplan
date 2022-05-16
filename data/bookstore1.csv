@@ -56,7 +56,7 @@ rect,backporch,Staff Area,224,90,lr,slidingdoors,ur,0,0
 class,normal public 
 textclass,textpublic
 rect,wallpaperback1,,1,113 3/8,ll,wallnf1,lr,187 5/8,0
-rect,wallpaperback2,,1,168 3/8,ll,tobeshelved,ur,0,0
+rect,wallpaperback2,,1,168 3/8,ul,tobeshelved,ur,0,0
 
 class,nonwall private
 textclass,textprivate
@@ -89,6 +89,20 @@ rect,worldhistmainright,,14.5,33,lr,wallnf1,ll,0,0
 rect,worldhistmainleft,,14.5,48,lr,worldhistmainright,ur,0,0
 rect,worldhistancient,,47,10,ur,worldhistmainleft,ul,-5,0
 rect,worldhistwar,,33,12 5/8,lr,worldhistmainright,ll,-5.5,0
+rect,worldhistlarge,,30,11.5,lr,worldhistwar,ll,0,0
+rect,pets1,,24,12 3/4,ll,outline,ll,0,0
+rect,pets2,,24,12 3/4,ll,pets1,lr,0,0
+rect,animals,,34,10,ll,pets2,lr,1,0
+rect,arizona,,12 3/4,24,ll,pets1,ul,0,0
+rect,art1,,12 3/4,24,ll,arizona,ul,0,0
+rect,art2,,12 3/4,24,ll,art1,ul,0,0
+rect,art3,,12 3/4,24,ll,art2,ul,0,0
+rect,biography,,12 3/4,24,ll,art3,ul,0,0
+rect,cooking1,,12 3/4,24,ll,biography,ul,0,0
+rect,cooking2,,24,12 3/4,ll,cooking1,ur,0,0
+rect,cooking3,,24,12 3/4,ll,cooking2,ur,0,0
+rect,crafts,,24,12 3/4,ll,cooking3,ul,0,0
+rect,entertainment,,24,12 3/4,ll,cooking2,ul,0,0
 
 class,normal public
 # repeat the building outline, so it will be in all black.

@@ -100,9 +100,13 @@ rect,art3,,12 3/4,24,ll,art2,ul,0,0
 rect,biography,,12 3/4,24,ll,art3,ul,0,0
 rect,cooking1,,12 3/4,24,ll,biography,ul,0,0
 rect,cooking2,,24,12 3/4,ll,cooking1,ur,0,0
-rect,cooking3,,24,12 3/4,ll,cooking2,ur,0,0
+rect,cooking3,,24,12 3/4,ll,cooking2,lr,0,0
 rect,crafts,,24,12 3/4,ll,cooking3,ul,0,0
 rect,entertainment,,24,12 3/4,ll,cooking2,ul,0,0
+rect,health1,,12 3/4,24,lr,entertainment,ul,0,0
+rect,health2,,12 3/4,24,ll,health1,ul,0,0
+rect,hike,,24,12 3/4,ll,health2,ur,0,0
+rect,home,,24,12 3/4,ll,hike,lr,0,0
 
 class,normal public
 # repeat the building outline, so it will be in all black.

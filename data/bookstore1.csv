@@ -107,6 +107,16 @@ rect,health1,,12 3/4,24,lr,entertainment,ul,0,0
 rect,health2,,12 3/4,24,ll,health1,ul,0,0
 rect,hike,,24,12 3/4,ll,health2,ur,0,0
 rect,home,,24,12 3/4,ll,hike,lr,0,0
+rect,photography,,24,12 3/4,ll,hike,ul,0,0
+rect,nativeamerican,,24,12 3/4,ll,photography,lr,0,0
+rect,politics,,12 3/4,24,lr,photography,ul,0,0
+rect,reference1,,12 3/4,24,ll,politics,ul,0,0
+# There's a big gap here in the rendered floorplan, showing that the
+# individual measurements of the shelves do not add up to the recorded
+# size of the room.  I'll have to fudge around that somehow.
+rect,reference2,,24,12 3/4,ul,outline,ul,12 3/4,0
+rect,reference3,,24,12 3/4,ul,reference2,ur,0,0
+rect,religion,,24,12 3/4,ul,reference3,ur,0,0
 
 class,normal public
 # repeat the building outline, so it will be in all black.

@@ -5,7 +5,9 @@ imagesize,1050,472
 class,normal public
 textclass,textpublic
 # Note that as measured in the non-fiction room, the Y extent of the building
-# is much smaller, at 319 3/16".  The building appears to not be a perfect rectangle.
+# is much smaller, at 319 3/16".  The building is not a perfect rectangle;
+# the building gets 25 inches less deep between the front desk and main door.
+# That almost perfectly accounts for the difference.
 rect,outline,,1002,345.5,ul,origin,ul,0,100
 class,normal private
 textclass,textprivate
@@ -134,10 +136,10 @@ rect,selfhelp2,36,12 3/4,24,ll,selfhelp1,ul,0,0
 
 rect,travel,37,31.5,11,ll,selfhelp2,ur,0,-1.75
 
-rect,memoirs,38,12 3/4,24,ur,wallnf2,ul,0,39
-rect,ushist1,39,12 3/4,24,ul,memoirs,ll,0,0
-rect,ushist2,42,24,12 3/4,ur,ushist1,lr,0,0
-rect,ushist3,41,24,12 3/4,ur,ushist2,ul,0,0
+rect,memoirs,38,12.3,33,ur,wallnf2,ul,0,39
+rect,ushist1,39,12.3,33,ul,memoirs,ll,0,0
+rect,ushist2,42,33,12.3,ur,ushist1,lr,0,0
+rect,ushist3,41,33,12.3,ur,ushist2,ul,0,0
 # People of Note is an odd shelf.  Also, this doesn't line up; does ushist2 go all the way to the wall?
 rect,peopleofnote,40,36,12,ll,ushist3,ul,0,0
 

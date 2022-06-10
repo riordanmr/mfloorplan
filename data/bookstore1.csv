@@ -4,6 +4,8 @@
 imagesize,1050,472
 class,normal public
 textclass,textpublic
+# Note that as measured in the non-fiction room, the Y extent of the building
+# is much smaller, at 319 3/16".  The building appears to not be a perfect rectangle.
 rect,outline,,1002,345.5,ul,origin,ul,0,100
 class,normal private
 textclass,textprivate
@@ -85,38 +87,59 @@ rect,western,West,31,14,ul,closetprivatebath,ll,0,0
 rect,classics,Classics,48,13,ur,fictoshelve,lr,-67,0
 
 # Non-Fiction room
-rect,worldhistmainright,,14.5,33,lr,wallnf1,ll,0,0
-rect,worldhistmainleft,,14.5,48,lr,worldhistmainright,ur,0,0
-rect,worldhistancient,,47,10,ur,worldhistmainleft,ul,-5,0
-rect,worldhistwar,,33,12 5/8,lr,worldhistmainright,ll,-5.5,0
-rect,worldhistlarge,,30,11.5,lr,worldhistwar,ll,0,0
-rect,pets1,,24,12 3/4,ll,outline,ll,0,0
-rect,pets2,,24,12 3/4,ll,pets1,lr,0,0
-rect,animals,,34,10,ll,pets2,lr,1,0
-rect,arizona,,12 3/4,24,ll,pets1,ul,0,0
-rect,art1,,12 3/4,24,ll,arizona,ul,0,0
-rect,art2,,12 3/4,24,ll,art1,ul,0,0
-rect,art3,,12 3/4,24,ll,art2,ul,0,0
-rect,biography,,12 3/4,24,ll,art3,ul,0,0
-rect,cooking1,,12 3/4,24,ll,biography,ul,0,0
-rect,cooking2,,24,12 3/4,ll,cooking1,ur,0,0
-rect,cooking3,,24,12 3/4,ll,cooking2,lr,0,0
-rect,crafts,,24,12 3/4,ll,cooking3,ul,0,0
-rect,entertainment,,24,12 3/4,ll,cooking2,ul,0,0
-rect,health1,,12 3/4,24,lr,entertainment,ul,0,0
-rect,health2,,12 3/4,24,ll,health1,ul,0,0
-rect,hike,,24,12 3/4,ll,health2,ur,0,0
-rect,home,,24,12 3/4,ll,hike,lr,0,0
-rect,photography,,24,12 3/4,ll,hike,ul,0,0
-rect,nativeamerican,,24,12 3/4,ll,photography,lr,0,0
-rect,politics,,12 3/4,24,lr,photography,ul,0,0
-rect,reference1,,12 3/4,24,ll,politics,ul,0,0
+rect,worldhistmainright,3,14.5,33,lr,wallnf1,ll,0,0
+rect,worldhistmainleft,2,14.5,48,lr,worldhistmainright,ur,0,0
+rect,worldhistancient,1,47,10,ur,worldhistmainleft,ul,-5,0
+rect,worldhistwar,4,33,12 5/8,lr,worldhistmainright,ll,-5.5,0
+rect,worldhistlarge,5,30,11.5,lr,worldhistwar,ll,0,0
+rect,pets1,8,24,12 3/4,ll,outline,ll,0,0
+rect,pets2,7,24,12 3/4,ll,pets1,lr,0,0
+rect,animals,6,34,10,ll,pets2,lr,1,0
+rect,arizona,9,12 3/4,24,ll,pets1,ul,0,0
+rect,art1,10,12 3/4,24,ll,arizona,ul,0,0
+rect,art2,11,12 3/4,24,ll,art1,ul,0,0
+rect,art3,12,12 3/4,24,ll,art2,ul,0,0
+rect,biography,13,12 3/4,24,ll,art3,ul,0,0
+rect,cooking1,14,12 3/4,24,ll,biography,ul,0,0
+rect,cooking2,15,24,12 3/4,ll,cooking1,ur,0,0
+rect,cooking3,16,24,12 3/4,ll,cooking2,lr,0,0
+rect,crafts,17,24,12 3/4,ll,cooking3,ul,0,0
+rect,entertainment,18,24,12 3/4,ll,cooking2,ul,0,0
+rect,health1,19,12 3/4,24,lr,entertainment,ul,0,0
+rect,health2,20,12 3/4,24,ll,health1,ul,0,0
+rect,hike,21,24,12 3/4,ll,health2,ur,0,0
+rect,home,22,24,12 3/4,ll,hike,lr,0,0
+rect,photography,24,24,12 3/4,ll,hike,ul,0,0
+rect,nativeamerican,23,24,12 3/4,ll,photography,lr,0,0
+rect,politics,25,12 3/4,24,lr,photography,ul,0,0
+rect,reference1,26,12 3/4,24,ll,politics,ul,0,0
 # There's a big gap here in the rendered floorplan, showing that the
 # individual measurements of the shelves do not add up to the recorded
 # size of the room.  I'll have to fudge around that somehow.
-rect,reference2,,24,12 3/4,ul,outline,ul,12 3/4,0
-rect,reference3,,24,12 3/4,ul,reference2,ur,0,0
-rect,religion,,24,12 3/4,ul,reference3,ur,0,0
+rect,reference2,27,24,12 3/4,ul,outline,ul,12 3/4,0
+rect,reference3,28,24,12 3/4,ul,reference2,ur,0,0
+rect,religion,29,24,12 3/4,ul,reference3,ur,0,0
+rect,spiritual1,30,24,12 3/4,ul,religion,ur,0,0
+rect,spiritual2,31,24,12 3/4,ul,spiritual1,ur,0,0
+rect,spiritual3,32,24,12 3/4,ul,spiritual2,ur,0,0
+
+rect,spiritual4,33,12 3/4,24,ul,spiritual3,lr,0,0
+rect,spiritual4,34,12 3/4,24,ul,spiritual4,ll,0,0
+rect,selfhelp1,35,12 3/4,24,ul,spiritual4,ur,0,0
+rect,selfhelp2,36,12 3/4,24,ll,selfhelp1,ul,0,0
+
+rect,travel,37,31.5,11,ll,selfhelp2,ur,0,-1.75
+
+rect,memoirs,38,12 3/4,24,ur,wallnf2,ul,0,39
+rect,ushist1,39,12 3/4,24,ul,memoirs,ll,0,0
+rect,ushist2,42,24,12 3/4,ur,ushist1,lr,0,0
+rect,ushist3,41,24,12 3/4,ur,ushist2,ul,0,0
+# People of Note is an odd shelf.  Also, this doesn't line up; does ushist2 go all the way to the wall?
+rect,peopleofnote,40,36,12,ll,ushist3,ul,0,0
+
+rect,ushist4aviation,43,12 3/4,24,ur,ushist2,lr,0,12
+rect,ushist5,44,12 3/4,24,ur,ushist4aviation,lr,0,0
+rect,ushist6,45,47.5,9.5,lr,wallnf2,ll,-26,0
 
 class,normal public
 # repeat the building outline, so it will be in all black.

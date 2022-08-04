@@ -40,23 +40,24 @@
 #     that negative numbers indicate a position above.
 #
 # class,classes
-#   Sets the CSS class(es) to be used from this point on (to the next)
+#   Sets the CSS class(es) to be used from this point on, to the next
 #   class command.  This applies to objects other than text.
 #   classes is a blank-separated list of CSS class names.
 #
 # textclass,classes
-#   Sets the CSS class(es) to be used from this point on (to the next)
+#   Sets the CSS class(es) to be used from this point on, to the next
 #   textclass command.  This applies only to text.
+#   classes is a blank-separated list of CSS class names.
 #
 # repeat,id
 #   Redraws the object with the given id, using the current classes.
 #   This can be used when two objects overlap.
 #-----------------------------------------------------------------------------
 #
-#  The default unit is inches, and partial inches can be specified via both 
-# decimal places and fractions (like 5/16).   Feet and inches can also be 
+# The default unit is inches, and partial inches can be specified via both 
+# decimal places and fractions (like 5/16).  Feet and inches can also be 
 # specified.  Decimal places are allowed on both feet and inches, though 
-# they are not encouraged.
+# they are not encouraged on feet.
 #
 # Here are some valid sizes and their meanings:
 # 12 means 12 inches
@@ -81,8 +82,12 @@ list_classes = [current_class]
 list_text_classes = [current_text_class]
 dict_vectors = dict()
 svgfile = None
+# dictIds maps from room ID to Room objects.
 dictIds = dict()
 
+# class Room describes a room, with the following fields in inches:
+# x, y, width, height.
+# where x,y gives the "absolute" location of the upper left corner of the room.
 class Room:
     pass
 

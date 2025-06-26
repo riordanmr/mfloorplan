@@ -84,6 +84,9 @@ dict_vectors = dict()
 svgfile = None
 # dictIds maps from room ID to Room objects.
 dictIds = dict()
+curX = 10
+curY = 10
+curPath = ""
 
 # class Room describes a room, with the following fields in inches:
 # x, y, width, height.
@@ -319,6 +322,59 @@ def do_repeat(id):
     line = dict_vectors[id]
     write_line(line)
 
+def do_draw(cmd, offset):
+    global curX, curY, current_class, curPath
+    line = ""
+    if cmd == "left":
+        # left,993 13/16
+        offset = parse_inches(offset)
+        curPath = curPath + f" L {curX-offset} {curY}"
+        curX -= offset
+    elif cmd == "right":
+        # right,993 13/16
+        offset = parse_inches(offset)
+        curPath = curPath + f" L {curX+offset} {curY}"
+        curX += offset
+    elif cmd == "up":
+        # up,341 5/16
+        offset = parse_inches(offset)
+        curPath = curPath + f" L {curX} {curY-offset}"
+        curY -= offset
+    elif cmd == "down":
+        # down,341 5/16
+        offset = parse_inches(offset)
+        curPath = curPath + f" L {curX} {curY+offset}"
+        curY += offset
+    else:
+        print(f"** Error: unrecognized command {cmd} in do_draw")
+        return
+    write_line(line)
+
+def do_move(x, y):
+    global curX, curY, curPath
+    x = parse_inches(x)
+    y = parse_inches(y)
+    if x is None or y is None:
+        print("** Error: bad coordinates in move command")
+        return
+    curX = x
+    curY = y
+    curPath = curPath + f" M {curX} {curY}"
+
+def do_endpath():
+    global curPath, curX, curY
+    if len(curPath) == 0:
+        print("** Error: endpath called with no path")
+        return
+    # Write the path to the SVG file.
+    line = f'<path d="{curPath}"'
+    if current_class != "":
+        line += f' class="{current_class}"'
+    line += "/>"
+    write_line(line)
+    # Reset the path.
+    curPath = ""
+    
 # Process a command.
 # Entry:    cmd     is the command, e.g., "rect"
 #           row     is a list of the command name and its arguments.
@@ -332,6 +388,39 @@ def process_cmd(cmd, row):
     elif cmd is None or cmd.startswith("#") or len(cmd)==0:
         # Ignore comments
         pass
+    elif cmd=="left":
+        if len(row) != 2:
+            print("Bad number of args for left: " + concat_list(row))
+        else:
+            do_draw(cmd,row[1])
+        pass
+    elif cmd=="right":
+        if len(row) != 2:
+            print("Bad number of args for right: " + concat_list(row))
+        else:
+            do_draw(cmd,row[1])
+    elif cmd=="up":
+        if len(row) != 2:
+            print("Bad number of args for up: " + concat_list(row))
+        else:
+            do_draw(cmd,row[1])
+    elif cmd=="down":
+        if len(row) != 2:
+            print("Bad number of args for down: " + concat_list(row))
+        else:
+            do_draw(cmd,row[1])
+    elif cmd=="move":
+        # move,341 5/16,993 13/16
+        if len(row) != 3:
+            print("Bad number of args for move: " + concat_list(row))
+        else:
+            do_move(row[1], row[2])
+    elif cmd=="endpath":
+        global curPath, curX, curY
+        if len(row) != 1:
+            print("Bad number of args for endpath: " + concat_list(row))
+        else:
+            do_endpath()
     elif cmd=="class":
         if len(row) != 2:
             print("Bad number of args for class: " + concat_list(row))

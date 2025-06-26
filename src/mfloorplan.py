@@ -126,7 +126,7 @@ def parse_inches(distance):
     if re.search("\"$",temp):        
         temp = temp[:-1]
     # Parse trailing fractional inches, if any.
-    mymatch = re.search("\d+/\d+$", temp)
+    mymatch = re.search(r"\d+/\d+$", temp)
     if mymatch:
         frac = mymatch.group()
         inches = eval(frac)
@@ -134,7 +134,7 @@ def parse_inches(distance):
         if temp.endswith(" "):
             temp = temp[:-1]
     # Deal with leading feet.
-    patternFeet = "^[+-]?((\d+(\.\d*)?)|(\.\d+))\'"
+    patternFeet = r"^[+-]?((\d+(\.\d*)?)|(\.\d+))\'"
     mymatch = re.search(patternFeet, temp)
     if mymatch:
         feet = mymatch.group()
@@ -143,7 +143,7 @@ def parse_inches(distance):
             feet = feet[:-1]
         inches += 12 * eval(feet)
     # Deal with the remaining, which should be only inches
-    patternInches = "^[+-]?((\d+(\.\d*)?)|(\.\d+))"
+    patternInches = r"^[+-]?((\d+(\.\d*)?)|(\.\d+))"
     mymatch = re.search(patternInches, temp)
     if mymatch:
         thisInches = mymatch.group()

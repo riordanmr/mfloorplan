@@ -1,0 +1,2 @@
+python3 src/mfloorplan.py  --infile=data/garage7111.csv  --outfile=data/garage7111.svg --skelfile=data/garage7111.skel.html --htmlfile=data/garage7111.html --cssfile=bookstore1.css
+cp data/garage7111.svg data/garage7111.svg.txt

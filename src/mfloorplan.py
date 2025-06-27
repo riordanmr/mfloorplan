@@ -348,7 +348,7 @@ def do_draw(cmd, offset):
     else:
         print(f"** Error: unrecognized command {cmd} in do_draw")
         return
-    write_line(line)
+    pass
 
 def do_move(x, y):
     global curX, curY, curPath
@@ -360,6 +360,10 @@ def do_move(x, y):
     curX = x
     curY = y
     curPath = curPath + f" M {curX} {curY}"
+
+def do_return():
+    global curPath
+    curPath = curPath + " Z"
 
 def do_endpath():
     global curPath, curX, curY
@@ -415,6 +419,11 @@ def process_cmd(cmd, row):
             print("Bad number of args for move: " + concat_list(row))
         else:
             do_move(row[1], row[2])
+    elif cmd=="return":
+        if len(row) != 1:
+            print("Bad number of args for return: " + concat_list(row))
+        else:
+            do_return()
     elif cmd=="endpath":
         global curPath, curX, curY
         if len(row) != 1:
@@ -471,7 +480,7 @@ def write_file_footer():
 def read_csv_file(dict_args):
     global total_width
     infile = dict_args["infile"]
-    print("About to read " + dict_args["infile"])
+    #print("About to read " + dict_args["infile"])
     with open(infile, newline='') as csvfile:
         # The csv class sucks.  It gives unpredictable errors under unknown
         # irreproducible circumstances.  So I'll stop using it.  

@@ -1,7 +1,7 @@
 # garage7111.csv is an input file to mfloorplan.py to create a rendering of the floor plan
 # of the garage at 7111 Applewood Dr, Madison, WI.
 # MRR  2025
-imagesize,372,280
+imagesize,372,285
 class,normal public
 textclass,textpublic
 # The commands are:
@@ -44,9 +44,12 @@ textclass,textpublic
 # repeat,id
 #   Redraws the object with the given id, using the current classes.
 #   This can be used when two objects overlap.
+#
+# Total width is 356.0625.
+# Total height is 268.4375.
 move,10,280
 up,2' 2 5/16
-up,34
+up,33
 up,8' 10 3/4
 right,3'11 3/8
 up,7'4 3/4
@@ -61,5 +64,10 @@ down,1'4
 down,21'0 7/16
 left,2'11 9/16
 left,18'2
-left,102.5
+return
 endpath
+class,private
+# rect,id,name,width,height,mycorner,otherid,othercorner,relativeX,relativeY 
+rect,worksurface,Work surface,8' 0 3/8, 1' 9 3/4,ul,origin,ul,259.625,0
+rect,builtincabs,Built-in cabinets,2' 1 9/16,152.25,ur,worksurface,ur,0,2' 1/8
+rect,garagedoor,Garage door,18' 2,1',lr,builtincabs,lr,-35.5625,92.0625

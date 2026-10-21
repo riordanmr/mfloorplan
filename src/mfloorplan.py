@@ -13,6 +13,7 @@
 #
 #-----------------------------------------------------------------------------
 # The commands are:
+#
 # imagesize,width,height
 #   Specifies the image size.  Must be the first non-comment command.
 #   where width and height are the total size of the image in pixels.
@@ -38,6 +39,38 @@
 #   relativeY is the relative vertical position of the new rectangle w.r.t. 
 #     the other rectangle.  Units are as described below, with the addition 
 #     that negative numbers indicate a position above.
+#
+# ==== The following commands involve the concept of a current path, and 
+#      operate independently from the "rect" command.
+#
+# left,relativeX
+#   Draws a line left from the current position.
+#     relativeX is the distance to draw to the left.
+#
+# right,relativeX
+#   Draws a line right from the current position.
+#     relativeX is the distance to draw to the right.
+#
+# up,relativeY
+#   Draws a line up from the current position.
+#     relativeX is the distance to draw up.
+#
+# down,relativeY
+#   Draws a line up from the current position.
+#     relativeX is the distance to draw down.
+#
+# move,X,Y
+#   Moves the current position.
+#     X is the new absolute X position.
+#     Y is the new absolute Y position.
+#
+# return
+#   Draws a line to the initial point of the current path.
+#
+# endpath
+#   Terminates the current path and writes it to the output.
+#
+#====  End of commands that operate on the current path.
 #
 # class,classes
 #   Sets the CSS class(es) to be used from this point on, to the next
@@ -425,7 +458,6 @@ def process_cmd(cmd, row):
         else:
             do_return()
     elif cmd=="endpath":
-        global curPath, curX, curY
         if len(row) != 1:
             print("Bad number of args for endpath: " + concat_list(row))
         else:

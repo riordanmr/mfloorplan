@@ -124,6 +124,8 @@ rect,C2,C2,84,18,ll,B3.5,lr,0,0
 # y offset unk:
 rect,C3,C3 u,84,18,ul,C2,ur,41,-10
 rect,C4,C4,48,22,ul,B5,ll,0,0
+rect,D3,D3,27,17,ur,C2,lr,0,0
+rect,D2,D2,26,12,ur,D3,ul,-1.5,0
 
 rect,maindoor,,2,40,ul,outline,ul,1,0
 # y offset unk:

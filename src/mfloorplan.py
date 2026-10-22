@@ -3,6 +3,7 @@
 # The input file contains commands used to describe the floor plan, 
 # in CSV format. 
 # The output file is in SVG (Scaled Vector Graphics) format.
+# For command line arguments, see parse_cmd_line() below.
 #
 # The commands take the format:
 #   commandName,arg1,arg2,...
@@ -16,7 +17,11 @@
 #
 # imagesize,width,height
 #   Specifies the image size.  Must be the first non-comment command.
-#   where width and height are the total size of the image in pixels.
+#   where width and height are the total size of the image. This is used
+#   as the svg element size and supposedly has units of pixels, but in 
+#   practice the units seem to be arbitrary. Typically I use inches.
+#   The image size needs to be larger than the actual content of the floor plan;
+#   otherwise parts of the floor plan may be clipped.
 #
 # rect,id,name,width,height,mycorner,otherid,othercorner,relativeX,relativeY 
 #   Causes a rectangle to be drawn.

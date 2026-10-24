@@ -242,6 +242,8 @@ def do_rect(id,label,width,height,objrel,otherid,otherrel,relx,rely):
     height = parse_inches(height) 
     relx = parse_inches(relx) 
     rely = parse_inches(rely)
+    # Replace any "@@" token in the label with the current object's id.
+    label = label.replace("@@", id)
     
     if otherid == "origin":
         other_room = Room()

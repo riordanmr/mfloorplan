@@ -90,23 +90,20 @@
 # 14' 6 means 14 feet and 6 inches
 # 14' 6 5/16 means 14 feet and 6 and 5/16 inches
 
-imagesize,620,368
+imagesize,649,368
 class,normal public
 textclass,textpublic
 
 rect,outline,,49',29'6 9/16,ul,origin,ul,0,0
 class,nonwall public
-# relative x is unknown:
-rect,A1,@@ lit u,48,16,ul,origin,ul,40,0
+
+rect,A1,@@ lit u,48,16,ul,origin,ul,53,0
 rect,A2,@@ tubes,90,12,ul,outline,ul,9'3",0
-# relative x is unk:
-rect,A3,@@ u,24,45,ul,A2,ur,8,0
-# relative x unk:
-rect,A4,@@ u,90.4,13,ul,A3,ur,6,0
+rect,A3,@@ u,24,45,ul,A2,ur,5,0
+rect,A4,@@ u,90.4,13,ul,A3,ur,18.7,0
 rect,HVAC1,HV 1,27,28,ul,A4,ur,14 3/4,0
 rect,A5,@@,48,24,ul,HVAC1,ur,18,0
-# rel x unk:
-rect,A6,@@ u,48,21.75,ul,A5,ur,12,0
+rect,A6,@@,48,21.75,ul,A5,ur,11,0
 # height unk:
 rect,A7,@@ u,36,21.75,ul,A6,ur,0,0
 rect,A8,@@,36,17,ul,A7,ur,0,0
@@ -119,17 +116,18 @@ rect,B7,@@ u,21.5,70,ul,A4,ur,-43,62
 rect,B8,@@ u,21.5,70,ul,B7,ur,0,17.5
 rect,B9,@@,22,32,ul,A5,ll,6,29
 # unk rel to A6:
-rect,B10,@@ u,21.8,48,ur,A8,lr,0,47
+#rect,B10,@@,21.8,48,ur,A8,lr,0,47
+rect,B10,@@,21.8,48,ul,outline,ur,0,65
 rect,C2,@@,84,18,ll,B8,lr,0,0
 # y offset unk:
-rect,C3,@@ u,84,18,ul,C2,ur,41,-10
+rect,C3,@@ u,84,18,ul,C2,ur,41,0
 rect,C4,@@,48,22,ul,B10,ll,0,0
 rect,D3,@@,27,17,ur,C2,lr,0,0
 rect,D2,@@,26,12,ur,D3,ul,-1.5,0
 
-rect,maindoor,,2,40,ul,outline,ul,1,0
+rect,maindoor,,2,39,ul,outline,ul,1,0
 # y offset unk:
-rect,recycle,B1,19,19,ul,outline,ul,0,45
+rect,recycle,B1,19,19,ul,outline,ul,0,47.5
 rect,trash,B2,19,19,ul,recycle,ll,0,0
 rect,foodcab,B3,16,32,ul,trash,ll,0,0
 rect,firstaid,B4,12.5,12.5,ul,foodcab,ll,0,0
@@ -142,26 +140,36 @@ rect,E2,@@ pen,48,24,ll,F2,ul,0,0
 
 rect,F3,@@,21.5,72,ll,outline,ll,18'6",-27.5
 rect,F4,@@,21.5,72,ul,F3,ur,0,0
-rect,F6,@@,22,72,lr,outline,lr,-10'10",-28.5
-rect,F5,@@,22,72,ur,F6,ul,0,0
-
-rect,F7,@@ u,24,10'1",lr,outline,lr,0,-15.5
+#rect,F6,@@,22,72,lr,outline,lr,-10'10",-28.5
+#rect,F5,@@,22,72,ur,F6,ul,0,0
+rect,F5,@@,22,72,ll,F4,lr,9'10",0
+rect,F6,@@,22,72,ll,F5,lr,0,0
+rect,F7,@@,24,10'1",lr,outline,lr,0,0
 #rect,E3,E3 u,24,60,lr,F5,ur,0,0
 
 rect,E3,@@,42,18.5,ll,F5,ul,0,-2
 
-# width unk:
-rect,G2,@@,17,15.5,ul,F2,ll,0,0
-rect,culligan,G1,13,13,lr,G2,ll,-1,0
+# Narrow shelf at end
+rect,G2,@@,22,15.5,ul,F2,ll,0,0
+rect,culligan,Cu,13,13,lr,G2,ll,-1,0
 rect,whitetable,F1,21,35,lr,F2,ll,0,0
+# First wide shelf: Stereo
 rect,G3,@@,49,15.5,ll,G2,lr,0,0
+# Shelf with hanging tools
 rect,G4,@@ flu,49,15.5,ll,G3,lr,0,0
+# Shelf by Harvey's bench:
 rect,G5,@@ toe,49,15.5,ll,G4,lr,0,0
+# New saddles, Duct tape
 rect,G6,@@ 26",49,15.5,ll,G5,lr,0,0
+# Bottle cages, water bottles
 rect,G7,@@ cage,49,15.5,ll,G6,lr,0,0
+# Reflectors (partly behind a workbench)
 rect,G8,@@ refl,49,15.5,ll,G7,lr,0,0
+# Pegboard: fenders and rim strips
 rect,G9,@@,49,15.5,ll,G8,lr,0,0
+# Saddles (rolling cart)
 rect,G10,@@ sad,49,22,ll,G9,lr,0,0
+# Chemicals locker
 rect,G11,@@ chm,36,19,ll,G10,lr,1,0
 
 # rect,id,name,width,height,mycorner,otherid,othercorner,relativeX,relativeY 

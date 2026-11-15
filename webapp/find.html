@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Bike Shop Parts & Tools Finder</title>
     <style>
         * {
@@ -11,10 +11,15 @@
             box-sizing: border-box;
         }
 
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: #f5f5f5;
-            height: 100vh;
+            height: 100%;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -239,7 +244,7 @@
         .menu {
             position: absolute;
             top: 48px;
-            right: 8px;
+            right: max(8px, calc(8px + env(safe-area-inset-right)));
             background: white;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -373,11 +378,6 @@
 
         /* Landscape mode optimization */
         @media (max-width: 900px) and (max-height: 500px) {
-            body {
-                height: 100%;
-                height: 100dvh;
-            }
-
             .header {
                 padding: 6px 8px;
             }
@@ -402,6 +402,10 @@
                 font-size: 11px;
             }
 
+            .menu {
+                right: max(4px, calc(4px + env(safe-area-inset-right)));
+            }
+
             .overlay {
                 max-height: 70%;
             }
@@ -424,6 +428,7 @@
         <button class="hamburger-btn" id="menuBtn">☰</button>
         <div class="menu" id="menu">
             <button class="menu-item" id="helpMenuItem">Help</button>
+            <button class="menu-item" id="aboutMenuItem">About</button>
         </div>
     </div>
 
@@ -458,6 +463,18 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span>About</span>
+                <button class="modal-close" id="aboutClose">&times;</button>
+            </div>
+            <div class="modal-content">
+                <p id="versionText"></p>
+            </div>
+        </div>
+    </div>
+
     <div class="map-container">
         <svg id="mapSvg" width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
         <div class="overlay" id="overlay">
@@ -472,6 +489,9 @@
     </div>
 
     <script>
+        // Version
+        const APP_VERSION = '0.7.0';
+
         // Data storage
         let mapData = {
             partsByLocation: {}, // { locationId: [part1, part2, ...] }
@@ -486,9 +506,40 @@
             panzoom: null
         };
 
+        // Handle dynamic viewport height for mobile keyboards
+        function setupViewportHeightFix() {
+            const html = document.documentElement;
+            const body = document.body;
+            
+            function updateHeight() {
+                // Use window.innerHeight which accounts for keyboard visibility
+                const vh = window.innerHeight;
+                html.style.height = vh + 'px';
+                body.style.height = vh + 'px';
+            }
+            
+            // Update on load
+            updateHeight();
+            
+            // Update on resize (keyboard appear/disappear)
+            window.addEventListener('resize', updateHeight);
+            
+            // Update on orientation change
+            window.addEventListener('orientationchange', () => {
+                setTimeout(updateHeight, 100);
+            });
+            
+            // For iOS, also listen to visualViewport changes
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', updateHeight);
+            }
+        }
+
         // Initialize the app
         async function init() {
             try {
+                // Setup viewport height fix
+                setupViewportHeightFix();
                 // Load SVG
                 await loadSvg();
                 // Load TSV data
@@ -740,6 +791,32 @@
             helpModal.addEventListener('click', (e) => {
                 if (e.target === helpModal) {
                     helpModal.classList.remove('active');
+                }
+            });
+
+            const aboutMenuItem = document.getElementById('aboutMenuItem');
+            const aboutModal = document.getElementById('aboutModal');
+            const aboutClose = document.getElementById('aboutClose');
+            const versionText = document.getElementById('versionText');
+
+            // Set version text
+            versionText.textContent = `Bike Shop Parts & Tools Finder version ${APP_VERSION}`;
+
+            // About menu item
+            aboutMenuItem.addEventListener('click', () => {
+                menu.classList.remove('active');
+                aboutModal.classList.add('active');
+            });
+
+            // About dialog close
+            aboutClose.addEventListener('click', () => {
+                aboutModal.classList.remove('active');
+            });
+
+            // Close about when clicking overlay
+            aboutModal.addEventListener('click', (e) => {
+                if (e.target === aboutModal) {
+                    aboutModal.classList.remove('active');
                 }
             });
             

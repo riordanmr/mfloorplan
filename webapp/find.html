@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Shop Parts & Tools Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .clear-btn {
+            padding: 10px 16px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .clear-btn:active {
+            background: #e0e0e0;
+        }
+
+        .map-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+
+        svg {
+            display: block;
+            touch-action: none;
+            cursor: grab;
+            background: white;
+        }
+
+        svg:active {
+            cursor: grabbing;
+        }
+
+        #outline {
+            fill: none;
+            stroke: black;
+            stroke-width: 5;
+        }
+
+        /* Non-interactive special elements */
+        #recycle, #trash, #foodcab, #firstaid, #culligan, #whitetable, #HVAC1, #maindoor, #staffdoor {
+            fill: #f9f9f9;
+            stroke: #ccc;
+            stroke-width: 2;
+        }
+
+        .location-rect {
+            cursor: pointer;
+            transition: fill 0.2s;
+            fill: #f9f9f9;
+            stroke: #ccc;
+        }
+
+        .location-rect:hover {
+            stroke-width: 3;
+        }
+
+        .location-rect.highlighted {
+            fill: #FFD700;
+            stroke: #FFA500;
+            stroke-width: 3;
+        }
+
+        .location-rect.selected {
+            fill: #FF6B6B;
+            stroke: #CC0000;
+            stroke-width: 3;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 2px solid #ddd;
+            max-height: 50%;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .overlay-header {
+            padding: 12px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .overlay-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+        }
+
+        .overlay-content {
+            padding: 12px;
+        }
+
+        .location-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .parts-list {
+            list-style: none;
+        }
+
+        .parts-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .parts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .parts-list strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .info-text {
+            padding: 8px 0;
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 8px;
+            }
+
+            .search-input {
+                font-size: 16px;
+            }
+
+            .overlay {
+                max-height: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="search-container">
+            <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Search for parts or tools (e.g., 'brakes', 'tools')"
+                autocomplete="off"
+            >
+            <button class="clear-btn" id="allBtn">All</button>
+            <button class="clear-btn" id="clearBtn">Clear</button>
+        </div>
+        <div class="info-text">Tap on a location to see what's stored there</div>
+    </div>
+
+    <div class="map-container">
+        <svg id="mapSvg" width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="overlay" id="overlay">
+            <div class="overlay-header">
+                <span id="overlayTitle">Location Details</span>
+                <button class="overlay-close" id="overlayClose">&times;</button>
+            </div>
+            <div class="overlay-content">
+                <ul class="parts-list" id="partsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let mapData = {
+            partsByLocation: {}, // { locationId: [part1, part2, ...] }
+            locationsByPart: {}  // { partLower: [{ location, part }, ...] }
+        };
+
+        let state = {
+            currentSearch: '',
+            highlightedLocations: new Set(),
+            selectedLocation: null,
+            svgElement: null,
+            panzoom: null
+        };
+
+        // Initialize the app
+        async function init() {
+            try {
+                // Load SVG
+                await loadSvg();
+                // Load TSV data
+                await loadTsvData();
+                // Setup event listeners
+                setupEventListeners();
+                // Setup zoom and pan
+                setupPanZoom();
+                console.log('App initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize app:', error);
+                showError('Failed to load application data');
+            }
+        }
+
+        // Load SVG file
+        async function loadSvg() {
+            const response = await fetch('bikeshop1.svg');
+            if (!response.ok) throw new Error('Failed to load SVG');
+            const svgText = await response.text();
+            const svgContainer = document.getElementById('mapSvg');
+            
+            // Parse SVG and extract only the content, removing the XML declaration and stylesheet
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+            
+            // Copy SVG attributes
+            const rootSvg = svgDoc.documentElement;
+            svgContainer.setAttribute('width', rootSvg.getAttribute('width'));
+            svgContainer.setAttribute('height', rootSvg.getAttribute('height'));
+            svgContainer.setAttribute('version', rootSvg.getAttribute('version'));
+            svgContainer.setAttribute('xmlns', rootSvg.getAttribute('xmlns'));
+            
+            // Copy all children
+            while (rootSvg.firstChild) {
+                svgContainer.appendChild(rootSvg.firstChild);
+            }
+
+            state.svgElement = svgContainer;
+            
+            // Make location rectangles interactive
+            setupLocationInteractions();
+        }
+
+        // Load and parse TSV data
+        async function loadTsvData() {
+            const response = await fetch('mapkey.tsv');
+            if (!response.ok) throw new Error('Failed to load map key');
+            const tsvText = await response.text();
+            
+            const lines = tsvText.trim().split('\n');
+            lines.forEach((line, index) => {
+                if (index === 0) return; // Skip header
+                const [location, part] = line.split('\t').map(s => s.trim());
+                if (!location || !part) return;
+                
+                // Build partsByLocation map
+                if (!mapData.partsByLocation[location]) {
+                    mapData.partsByLocation[location] = [];
+                }
+                mapData.partsByLocation[location].push(part);
+                
+                // Build locationsByPart map (for searching)
+                const partLower = part.toLowerCase();
+                if (!mapData.locationsByPart[partLower]) {
+                    mapData.locationsByPart[partLower] = [];
+                }
+                mapData.locationsByPart[partLower].push({ location, part });
+            });
+            
+            // Sort parts within each location
+            Object.keys(mapData.partsByLocation).forEach(location => {
+                mapData.partsByLocation[location].sort();
+            });
+        }
+
+        // Setup location rectangle interactions
+        function setupLocationInteractions() {
+            const rects = state.svgElement.querySelectorAll('rect[id]');
+            rects.forEach(rect => {
+                const id = rect.getAttribute('id');
+                // Skip non-location rectangles
+                if (id === 'outline' || id === 'HVAC1' || id === 'maindoor' || id === 'staffdoor' || 
+                    id === 'recycle' || id === 'trash' || id === 'foodcab' || id === 'firstaid' || 
+                    id === 'culligan' || id === 'whitetable') {
+                    return;
+                }
+                
+                // Style as location
+                rect.classList.add('location-rect');
+                
+                // Add click handler
+                rect.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectLocation(id);
+                });
+            });
+        }
+
+        // Setup pan and zoom functionality
+        function setupPanZoom() {
+            const svg = state.svgElement;
+            const container = document.querySelector('.map-container');
+            
+            let isPanning = false;
+            let startX, startY;
+            let translateX = 0, translateY = 0;
+            let scale = 1;
+            
+            // Mouse wheel zoom
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = svg.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const oldScale = scale;
+                scale *= e.deltaY > 0 ? 0.9 : 1.1;
+                scale = Math.max(0.5, Math.min(3, scale));
+                
+                // Adjust translation to zoom towards cursor
+                const scaleDiff = scale - oldScale;
+                translateX -= (x - translateX) * scaleDiff / oldScale;
+                translateY -= (y - translateY) * scaleDiff / oldScale;
+                
+                updateSvgTransform();
+            });
+            
+            // Touch zoom (pinch)
+            let lastDistance = 0;
+            svg.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 2) {
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    lastDistance = Math.sqrt(dx * dx + dy * dy);
+                }
+            });
+            
+            svg.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 2) {
+                    e.preventDefault();
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (lastDistance > 0) {
+                        const ratio = distance / lastDistance;
+                        const oldScale = scale;
+                        scale *= ratio;
+                        scale = Math.max(0.5, Math.min(3, scale));
+                        
+                        const rect = svg.getBoundingClientRect();
+                        const x = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+                        const y = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+                        
+                        const scaleDiff = scale - oldScale;
+                        translateX -= (x - translateX) * scaleDiff / oldScale;
+                        translateY -= (y - translateY) * scaleDiff / oldScale;
+                        
+                        updateSvgTransform();
+                    }
+                    lastDistance = distance;
+                }
+            });
+            
+            // Pan with mouse
+            svg.addEventListener('mousedown', (e) => {
+                if (e.button === 0) { // Left mouse button
+                    isPanning = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                    svg.style.cursor = 'grabbing';
+                }
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (isPanning) {
+                    translateX = e.clientX - startX;
+                    translateY = e.clientY - startY;
+                    updateSvgTransform();
+                }
+            });
+            
+            document.addEventListener('mouseup', () => {
+                isPanning = false;
+                svg.style.cursor = 'grab';
+            });
+            
+            // Pan with touch
+            let touchStartX, touchStartY;
+            svg.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX - translateX;
+                    touchStartY = e.touches[0].clientY - translateY;
+                }
+            });
+            
+            svg.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    e.preventDefault();
+                    translateX = e.touches[0].clientX - touchStartX;
+                    translateY = e.touches[0].clientY - touchStartY;
+                    updateSvgTransform();
+                }
+            });
+            
+            function updateSvgTransform() {
+                svg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                svg.style.transformOrigin = '0 0';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            const searchInput = document.getElementById('searchInput');
+            const allBtn = document.getElementById('allBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const overlayClose = document.getElementById('overlayClose');
+            
+            searchInput.addEventListener('input', (e) => {
+                handleSearch(e.target.value);
+            });
+            
+            allBtn.addEventListener('click', () => {
+                // Show all items
+                const allResults = [];
+                Object.entries(mapData.locationsByPart).forEach(([partLower, locations]) => {
+                    locations.forEach(item => {
+                        allResults.push(item);
+                    });
+                });
+                
+                if (allResults.length > 0) {
+                    // Highlight all locations
+                    allResults.forEach(result => {
+                        state.highlightedLocations.add(result.location);
+                        const rect = state.svgElement.querySelector(`rect#${result.location}`);
+                        if (rect) {
+                            rect.classList.add('highlighted');
+                        }
+                    });
+                    
+                    // Show all results in overlay
+                    showSearchResults(allResults);
+                    searchInput.value = '';
+                }
+            });
+            
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                handleSearch('');
+                searchInput.focus();
+            });
+            
+            overlayClose.addEventListener('click', closeOverlay);
+            
+            // Close overlay when clicking outside
+            document.querySelector('.map-container').addEventListener('click', (e) => {
+                if (e.target === state.svgElement || e.target.tagName === 'svg') {
+                    closeOverlay();
+                }
+            });
+        }
+
+        // Handle search input
+        function handleSearch(query) {
+            state.currentSearch = query.toLowerCase().trim();
+            clearHighlights();
+            
+            if (!state.currentSearch) {
+                closeOverlay();
+                return;
+            }
+            
+            // Find matching parts
+            const matchedResults = [];
+            Object.entries(mapData.locationsByPart).forEach(([partLower, locations]) => {
+                if (partLower.includes(state.currentSearch)) {
+                    locations.forEach(item => {
+                        matchedResults.push(item);
+                    });
+                }
+            });
+            
+            // Highlight locations and update overlay with results
+            if (matchedResults.length > 0) {
+                matchedResults.forEach(result => {
+                    state.highlightedLocations.add(result.location);
+                    const rect = state.svgElement.querySelector(`rect#${result.location}`);
+                    if (rect) {
+                        rect.classList.add('highlighted');
+                    }
+                });
+                
+                // Show results in overlay
+                showSearchResults(matchedResults);
+            } else {
+                showNoResults();
+            }
+        }
+
+        // Highlight locations for a specific part
+        function highlightPartLocations(partName, locations) {
+            // Clear current highlights
+            clearHighlights();
+            
+            // Highlight only the locations for this part
+            locations.forEach(locationId => {
+                state.highlightedLocations.add(locationId);
+                const rect = state.svgElement.querySelector(`rect#${locationId}`);
+                if (rect) {
+                    rect.classList.add('highlighted');
+                }
+            });
+        }
+
+        // Group results by part name
+        function groupResultsByPart(results) {
+            const grouped = {};
+            results.forEach(result => {
+                if (!grouped[result.part]) {
+                    grouped[result.part] = [];
+                }
+                grouped[result.part].push(result.location);
+            });
+            return grouped;
+        }
+
+        // Show search results in overlay
+        function showSearchResults(results) {
+            const overlay = document.getElementById('overlay');
+            const overlayTitle = document.getElementById('overlayTitle');
+            const partsList = document.getElementById('partsList');
+            
+            // Group by part name to combine locations
+            const grouped = groupResultsByPart(results);
+            const uniqueItems = Object.keys(grouped).length;
+            
+            overlayTitle.textContent = `Search Results (${uniqueItems} item${uniqueItems === 1 ? '' : 's'})`;
+            partsList.innerHTML = '';
+            
+            // Display grouped results
+            Object.keys(grouped).sort().forEach(partName => {
+                const locations = grouped[partName].sort();
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${partName}</strong>: ${locations.join(', ')}`;
+                li.style.cursor = 'pointer';
+                
+                // Add click handler to highlight this item's locations
+                li.addEventListener('click', () => {
+                    highlightPartLocations(partName, locations);
+                });
+                
+                partsList.appendChild(li);
+            });
+            
+            overlay.classList.add('active');
+        }
+
+        // Show "no results" message
+        function showNoResults() {
+            const overlay = document.getElementById('overlay');
+            const overlayTitle = document.getElementById('overlayTitle');
+            const partsList = document.getElementById('partsList');
+            
+            overlayTitle.textContent = 'No Results';
+            partsList.innerHTML = '<li class="no-results">No matching parts found. Try a different search term.</li>';
+            
+            overlay.classList.add('active');
+        }
+
+        // Select a location (from tap)
+        function selectLocation(locationId) {
+            // Deselect previous
+            if (state.selectedLocation && state.selectedLocation !== locationId) {
+                const prevRect = state.svgElement.querySelector(`rect#${state.selectedLocation}`);
+                if (prevRect) {
+                    prevRect.classList.remove('selected');
+                }
+            }
+            
+            state.selectedLocation = locationId;
+            const rect = state.svgElement.querySelector(`rect#${locationId}`);
+            if (rect) {
+                rect.classList.add('selected');
+            }
+            
+            // Show location details in overlay
+            const parts = mapData.partsByLocation[locationId];
+            showLocationDetails(locationId, parts);
+        }
+
+        // Show location details in overlay
+        function showLocationDetails(locationId, parts) {
+            const overlay = document.getElementById('overlay');
+            const overlayTitle = document.getElementById('overlayTitle');
+            const partsList = document.getElementById('partsList');
+            
+            overlayTitle.textContent = `Location ${locationId}`;
+            partsList.innerHTML = '';
+            
+            if (parts && parts.length > 0) {
+                parts.forEach(part => {
+                    const li = document.createElement('li');
+                    li.textContent = part;
+                    partsList.appendChild(li);
+                });
+            } else {
+                partsList.innerHTML = '<li class="no-results">No items found at this location.</li>';
+            }
+            
+            overlay.classList.add('active');
+        }
+
+        // Close overlay
+        function closeOverlay() {
+            const overlay = document.getElementById('overlay');
+            overlay.classList.remove('active');
+            
+            // Deselect location
+            if (state.selectedLocation) {
+                const rect = state.svgElement.querySelector(`rect#${state.selectedLocation}`);
+                if (rect) {
+                    rect.classList.remove('selected');
+                }
+                state.selectedLocation = null;
+            }
+        }
+
+        // Clear all highlights
+        function clearHighlights() {
+            state.highlightedLocations.forEach(locationId => {
+                const rect = state.svgElement.querySelector(`rect#${locationId}`);
+                if (rect) {
+                    rect.classList.remove('highlighted');
+                }
+            });
+            state.highlightedLocations.clear();
+        }
+
+        // Show error message
+        function showError(message) {
+            const partsList = document.getElementById('partsList');
+            partsList.innerHTML = `<li class="no-results">${message}</li>`;
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>

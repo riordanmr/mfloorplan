@@ -490,7 +490,7 @@
 
     <script>
         // Version
-        const APP_VERSION = '0.7.0';
+        const APP_VERSION = '0.7.1';
 
         // Data storage
         let mapData = {
@@ -822,6 +822,14 @@
             
             searchInput.addEventListener('input', (e) => {
                 handleSearch(e.target.value);
+            });
+
+            searchInput.addEventListener('focus', (e) => {
+                // When focus returns to search input, re-run search if there's text
+                const searchText = e.target.value.trim();
+                if (searchText) {
+                    handleSearch(searchText);
+                }
             });
             
             allBtn.addEventListener('click', () => {

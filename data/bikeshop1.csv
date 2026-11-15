@@ -151,7 +151,7 @@ rect,E3,@@,42,18.5,ll,F5,ul,0,-2
 
 # Narrow shelf at end
 rect,G2,@@,22,15.5,ul,F2,ll,0,0
-rect,culligan,Cu,13,13,lr,G2,ll,-1,0
+rect,culligan,Wa,13,13,lr,G2,ll,-1,0
 rect,whitetable,F1,21,35,lr,F2,ll,0,0
 # First wide shelf: Stereo
 rect,G3,@@,49,15.5,ll,G2,lr,0,0

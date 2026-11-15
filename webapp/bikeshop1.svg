@@ -1,11 +1,11 @@
 <?xml-stylesheet type="text/css" href="bikeshop1.css"?>
 <svg width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg">
-<!-- Rendered 2026-11-10 09:55:21 by mfloorplan.py https://github.com/riordanmr/mfloorplan -->
+<!-- Rendered 2026-11-15 11:09:28 by mfloorplan.py https://github.com/riordanmr/mfloorplan -->
 <rect id="outline" x="12" y="12" width="588" height="354.5625" class="normal public"/>
 <rect id="A1" x="65" y="12" width="48" height="16" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(89.0,20.0) rotate(0)" class="textpublic">A1 lit u</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(89.0,20.0) rotate(0)" class="textpublic">A1</text>
 <rect id="A2" x="123" y="12" width="90" height="12" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(168.0,18.0) rotate(0)" class="textpublic">A2 tubes</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(168.0,18.0) rotate(0)" class="textpublic">A2</text>
 <rect id="A3" x="218" y="12" width="24" height="45" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(230.0,34.5) rotate(-90)" class="textpublic">A3 u</text>
 <rect id="A4" x="260.7" y="12" width="90.4" height="13" class="nonwall public"/>
@@ -23,9 +23,9 @@
 <rect id="B5" x="135" y="80" width="30" height="96" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(150.0,128.0) rotate(-90)" class="textpublic">B5 admin</text>
 <rect id="B6" x="218" y="57" width="20" height="70" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(228.0,92.0) rotate(-90)" class="textpublic">B6 glass u</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(228.0,92.0) rotate(-90)" class="textpublic">B6 u</text>
 <rect id="C1" x="218" y="127" width="20" height="70" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(228.0,162.0) rotate(-90)" class="textpublic">C1 glass</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(228.0,162.0) rotate(-90)" class="textpublic">C1</text>
 <rect id="B7" x="308.1" y="74" width="21.5" height="70" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(318.85,109.0) rotate(-90)" class="textpublic">B7 u</text>
 <rect id="B8" x="329.6" y="91.5" width="21.5" height="70" class="nonwall public"/>
@@ -61,7 +61,7 @@
 <rect id="F2" x="118" y="302.5625" width="23.5" height="51" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(129.75,328.0625) rotate(-90)" class="textpublic">F2</text>
 <rect id="E2" x="118" y="278.5625" width="48" height="24" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(142.0,290.5625) rotate(0)" class="textpublic">E2 pen</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(142.0,290.5625) rotate(0)" class="textpublic">E2</text>
 <rect id="F3" x="234" y="267.0625" width="21.5" height="72" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(244.75,303.0625) rotate(-90)" class="textpublic">F3</text>
 <rect id="F4" x="255.5" y="267.0625" width="21.5" height="72" class="nonwall public"/>
@@ -83,19 +83,19 @@
 <rect id="G3" x="140" y="353.5625" width="49" height="15.5" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(164.5,361.3125) rotate(0)" class="textpublic">G3</text>
 <rect id="G4" x="189" y="353.5625" width="49" height="15.5" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(213.5,361.3125) rotate(0)" class="textpublic">G4 flu</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(213.5,361.3125) rotate(0)" class="textpublic">G4</text>
 <rect id="G5" x="238" y="353.5625" width="49" height="15.5" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(262.5,361.3125) rotate(0)" class="textpublic">G5 toe</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(262.5,361.3125) rotate(0)" class="textpublic">G5</text>
 <rect id="G6" x="287" y="353.5625" width="49" height="15.5" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(311.5,361.3125) rotate(0)" class="textpublic">G6 26"</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(311.5,361.3125) rotate(0)" class="textpublic">G6</text>
 <rect id="G7" x="336" y="353.5625" width="49" height="15.5" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(360.5,361.3125) rotate(0)" class="textpublic">G7 cage</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(360.5,361.3125) rotate(0)" class="textpublic">G7</text>
 <rect id="G8" x="385" y="353.5625" width="49" height="15.5" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(409.5,361.3125) rotate(0)" class="textpublic">G8 refl</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(409.5,361.3125) rotate(0)" class="textpublic">G8</text>
 <rect id="G9" x="434" y="353.5625" width="49" height="15.5" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(458.5,361.3125) rotate(0)" class="textpublic">G9</text>
 <rect id="G10" x="483" y="347.0625" width="49" height="22" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(507.5,358.0625) rotate(0)" class="textpublic">G10 sad</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(507.5,358.0625) rotate(0)" class="textpublic">G10</text>
 <rect id="G11" x="533" y="350.0625" width="36" height="19" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(551.0,359.5625) rotate(0)" class="textpublic">G11 chm</text>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(551.0,359.5625) rotate(0)" class="textpublic">G11</text>
 </svg>

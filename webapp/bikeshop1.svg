@@ -1,6 +1,6 @@
 <?xml-stylesheet type="text/css" href="bikeshop1.css"?>
 <svg width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg">
-<!-- Rendered 2026-11-15 11:09:28 by mfloorplan.py https://github.com/riordanmr/mfloorplan -->
+<!-- Rendered 2026-11-15 11:18:53 by mfloorplan.py https://github.com/riordanmr/mfloorplan -->
 <rect id="outline" x="12" y="12" width="588" height="354.5625" class="normal public"/>
 <rect id="A1" x="65" y="12" width="48" height="16" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(89.0,20.0) rotate(0)" class="textpublic">A1</text>
@@ -38,8 +38,8 @@
 <text text-anchor="middle" dominant-baseline="central" transform="translate(393.1,152.5) rotate(0)" class="textpublic">C2</text>
 <rect id="C3" x="476.1" y="143.5" width="84" height="18" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(518.1,152.5) rotate(0)" class="textpublic">C3 u</text>
-<rect id="C4" x="600" y="125" width="48" height="22" class="nonwall public"/>
-<text text-anchor="middle" dominant-baseline="central" transform="translate(624.0,136.0) rotate(0)" class="textpublic">C4</text>
+<rect id="C4" x="582" y="125" width="48" height="22" class="nonwall public"/>
+<text text-anchor="middle" dominant-baseline="central" transform="translate(606.0,136.0) rotate(0)" class="textpublic">C4</text>
 <rect id="D3" x="408.1" y="161.5" width="27" height="17" class="nonwall public"/>
 <text text-anchor="middle" dominant-baseline="central" transform="translate(421.6,170.0) rotate(0)" class="textpublic">D3</text>
 <rect id="D2" x="380.6" y="161.5" width="26" height="12" class="nonwall public"/>

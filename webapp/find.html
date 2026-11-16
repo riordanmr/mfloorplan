@@ -11,6 +11,50 @@
             box-sizing: border-box;
         }
 
+        /* Styles from bikeshop1.css */
+        .normal {
+            stroke-width: 3;
+            fill: transparent;
+        }
+
+        .public {
+            stroke: black;
+        }
+
+        .nonwall {
+            stroke-width: 2;
+            fill: transparent;
+        }
+
+        .private {
+            stroke: lightgrey;
+            fill: whitesmoke;
+        }
+
+        .guess {
+            stroke: red;
+        }
+
+        .textpublic {
+            font-family: serif, sans-serif;
+            font-size: 8pt;
+            fill: black;
+        }
+
+        .textprivate {
+            font-family: sans-serif;
+            font-size: 8pt;
+            fill: grey;
+        }
+
+        .small {
+            font-size: 7pt;
+        }
+
+        .smaller {
+            font-size: 6pt;
+        }
+
         html {
             height: 100%;
             overflow: hidden;
@@ -116,18 +160,12 @@
             stroke-width: 5;
         }
 
-        /* Non-interactive special elements */
-        #recycle, #trash, #foodcab, #firstaid, #culligan, #whitetable, #HVAC1, #maindoor, #staffdoor {
-            fill: #f9f9f9;
-            stroke: #ccc;
-            stroke-width: 2;
-        }
-
         .location-rect {
             cursor: pointer;
             transition: fill 0.2s;
             fill: #f9f9f9;
-            stroke: #ccc;
+            stroke: black;
+            stroke-width: 2;
         }
 
         .location-rect:hover {
@@ -469,7 +507,7 @@
     </div>
 
     <div class="map-container">
-        <svg id="mapSvg" width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg id="mapSvg" width="649" height="370" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
         <div class="overlay" id="overlay">
             <div class="overlay-header">
                 <span id="overlayTitle">Location Details</span>
@@ -615,9 +653,7 @@
             rects.forEach(rect => {
                 const id = rect.getAttribute('id');
                 // Skip non-location rectangles
-                if (id === 'outline' || id === 'HVAC1' || id === 'maindoor' || id === 'staffdoor' || 
-                    id === 'recycle' || id === 'trash' || id === 'foodcab' || id === 'firstaid' || 
-                    id === 'culligan' || id === 'whitetable') {
+                if (id === 'outline' || id === 'HVAC1') {
                     return;
                 }
                 

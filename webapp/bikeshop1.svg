@@ -1,5 +1,5 @@
 <?xml-stylesheet type="text/css" href="bikeshop1.css"?>
-<svg width="649" height="368" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="649" height="370" version="1.1" xmlns="http://www.w3.org/2000/svg">
 <!-- Rendered 2026-11-15 11:18:53 by mfloorplan.py https://github.com/riordanmr/mfloorplan -->
 <rect id="outline" x="12" y="12" width="588" height="354.5625" class="normal public"/>
 <rect id="A1" x="65" y="12" width="48" height="16" class="nonwall public"/>
